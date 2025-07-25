@@ -357,7 +357,9 @@ class AIJobScraper:
             print(f"Government positions scraping error: {e}")
             
         return jobs
-        """Scrape global job opportunities and international organizations"""
+
+        def scrape_global_opportunities(self) -> List[Dict]: 
+        """Global job opportunities and international organizations"""
         jobs = []
         
         try:
