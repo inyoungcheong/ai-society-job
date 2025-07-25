@@ -640,71 +640,25 @@
             return stats;
         }
 
-        // Demo data fallback
+        // Demo data fallback - only show message when no real data available
         function loadDemoData() {
-            allJobs = [
-                {
-                    title: "AI Ethics Researcher",
-                    company: "Stanford HAI",
-                    location: "Stanford, CA, US",
-                    job_type: "faculty",
-                    category: "research",
-                    description: "Research position focusing on AI ethics and societal impact...",
-                    posting_date: "2025-07-20",
-                    deadline: "2025-09-15",
-                    source_url: "https://example.com/job1",
-                    relevance_score: 95,
-                    tags: ["AI Ethics", "Research", "Faculty"]
-                },
-                {
-                    title: "AI Policy Analyst",
-                    company: "Google",
-                    location: "Mountain View, CA, US",
-                    job_type: "industry",
-                    category: "policy",
-                    description: "Analyze AI policy implications for technology development...",
-                    posting_date: "2025-07-19",
-                    deadline: null,
-                    source_url: "https://example.com/job2",
-                    relevance_score: 88,
-                    tags: ["Policy", "Analysis", "Industry"]
-                },
-                {
-                    title: "AI Governance Specialist",
-                    company: "OECD",
-                    location: "Paris, France",
-                    job_type: "international",
-                    category: "policy",
-                    description: "Develop international standards and guidelines for AI governance...",
-                    posting_date: "2025-07-18",
-                    deadline: "2025-09-05",
-                    source_url: "https://example.com/job4",
-                    relevance_score: 96,
-                    tags: ["International", "AI Governance", "Policy"]
-                },
-                {
-                    title: "Digital Rights Legal Counsel",
-                    company: "Federal Trade Commission",
-                    location: "Washington, DC, US",
-                    job_type: "government",
-                    category: "law",
-                    description: "Legal counsel specializing in digital rights and AI regulation...",
-                    posting_date: "2025-07-17",
-                    deadline: "2025-08-25",
-                    source_url: "https://example.com/job5",
-                    relevance_score: 94,
-                    tags: ["Legal", "Digital Rights", "Government"]
-                }
-            ];
-
+            allJobs = [];
+            filteredJobs = [];
+            
             updateStats({
-                total: 15,
-                by_job_type: { faculty: 4, industry: 5, government: 2, international: 1, nonprofit: 3 }
+                total: 0,
+                by_job_type: { faculty: 0, industry: 0, government: 0, international: 0, nonprofit: 0 }
             });
             
-            updateLastUpdate("2025-07-25T12:00:00Z");
-            filteredJobs = [...allJobs];
-            renderJobs();
+            updateLastUpdate(new Date().toISOString());
+            
+            // Show no data message
+            document.getElementById('job-list').innerHTML = `
+                <div class="no-results">
+                    <p>🔄 No job data available yet.</p>
+                    <p>Please wait for the scraper to collect data, or check back later.</p>
+                </div>
+            `;
         }
 
         // Update statistics display - FIXED to include all job types
