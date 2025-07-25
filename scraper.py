@@ -299,109 +299,108 @@ class AIJobScraper:
             
         return jobs
 
-        def scrape_government_positions(self) -> List[Dict]:
-            """Scrape government positions related to AI and technology policy"""
-            jobs = []
+    def scrape_government_positions(self) -> List[Dict]:
+        """Scrape government positions related to AI and technology policy"""
+        jobs = []
+        
+        try:
+            # Mock government job postings
+            mock_jobs = [
+                {
+                    "title": "AI Policy Specialist",
+                    "company": "National Institute of Standards and Technology (NIST)",
+                    "location": "Gaithersburg, MD",
+                    "job_type": "government",
+                    "category": "policy",
+                    "description": "Develop AI risk management frameworks and standards for federal agencies. Work on AI governance policies, risk assessment methodologies, and stakeholder engagement on AI regulation.",
+                    "posting_date": (datetime.now() - timedelta(days=4)).strftime("%Y-%m-%d"),
+                    "deadline": (datetime.now() + timedelta(days=25)).strftime("%Y-%m-%d"),
+                    "source_url": "https://www.usajobs.gov/job/ai-policy-nist",
+                    "source_site": "usajobs",
+                    "tags": ["Government", "AI Policy", "Risk Management", "Standards"]
+                },
+                {
+                    "title": "Technology Ethics Advisor",
+                    "company": "Office of Science and Technology Policy (OSTP)",
+                    "location": "Washington, DC",
+                    "job_type": "government",
+                    "category": "policy",
+                    "description": "Advise on ethical implications of emerging technologies including AI, provide policy recommendations on responsible innovation, and coordinate with federal agencies on technology ethics initiatives.",
+                    "posting_date": (datetime.now() - timedelta(days=6)).strftime("%Y-%m-%d"),
+                    "deadline": (datetime.now() + timedelta(days=15)).strftime("%Y-%m-%d"),
+                    "source_url": "https://www.usajobs.gov/job/tech-ethics-ostp",
+                    "source_site": "usajobs",
+                    "tags": ["Government", "Ethics", "Policy Advisory", "Federal"]
+                },
+                {
+                    "title": "Digital Rights Legal Counsel",
+                    "company": "Federal Trade Commission (FTC)",
+                    "location": "Washington, DC",
+                    "job_type": "government",
+                    "category": "law",
+                    "description": "Legal counsel specializing in digital rights, AI regulation, and consumer protection in digital markets. Work on enforcement actions, policy development, and legal analysis of emerging technologies.",
+                    "posting_date": (datetime.now() - timedelta(days=3)).strftime("%Y-%m-%d"),
+                    "deadline": (datetime.now() + timedelta(days=35)).strftime("%Y-%m-%d"),
+                    "source_url": "https://www.usajobs.gov/job/digital-rights-ftc",
+                    "source_site": "usajobs",
+                    "tags": ["Government", "Legal", "Digital Rights", "Consumer Protection"]
+                }
+            ]
             
-            try:
-                # Mock government job postings
-                mock_jobs = [
-                    {
-                        "title": "AI Policy Specialist",
-                        "company": "National Institute of Standards and Technology (NIST)",
-                        "location": "Gaithersburg, MD",
-                        "job_type": "government",
-                        "category": "policy",
-                        "description": "Develop AI risk management frameworks and standards for federal agencies. Work on AI governance policies, risk assessment methodologies, and stakeholder engagement on AI regulation.",
-                        "posting_date": (datetime.now() - timedelta(days=4)).strftime("%Y-%m-%d"),
-                        "deadline": (datetime.now() + timedelta(days=25)).strftime("%Y-%m-%d"),
-                        "source_url": "https://www.usajobs.gov/job/ai-policy-nist",
-                        "source_site": "usajobs",
-                        "tags": ["Government", "AI Policy", "Risk Management", "Standards"]
-                    },
-                    {
-                        "title": "Technology Ethics Advisor",
-                        "company": "Office of Science and Technology Policy (OSTP)",
-                        "location": "Washington, DC",
-                        "job_type": "government",
-                        "category": "policy",
-                        "description": "Advise on ethical implications of emerging technologies including AI, provide policy recommendations on responsible innovation, and coordinate with federal agencies on technology ethics initiatives.",
-                        "posting_date": (datetime.now() - timedelta(days=6)).strftime("%Y-%m-%d"),
-                        "deadline": (datetime.now() + timedelta(days=15)).strftime("%Y-%m-%d"),
-                        "source_url": "https://www.usajobs.gov/job/tech-ethics-ostp",
-                        "source_site": "usajobs",
-                        "tags": ["Government", "Ethics", "Policy Advisory", "Federal"]
-                    },
-                    {
-                        "title": "Digital Rights Legal Counsel",
-                        "company": "Federal Trade Commission (FTC)",
-                        "location": "Washington, DC",
-                        "job_type": "government",
-                        "category": "law",
-                        "description": "Legal counsel specializing in digital rights, AI regulation, and consumer protection in digital markets. Work on enforcement actions, policy development, and legal analysis of emerging technologies.",
-                        "posting_date": (datetime.now() - timedelta(days=3)).strftime("%Y-%m-%d"),
-                        "deadline": (datetime.now() + timedelta(days=35)).strftime("%Y-%m-%d"),
-                        "source_url": "https://www.usajobs.gov/job/digital-rights-ftc",
-                        "source_site": "usajobs",
-                        "tags": ["Government", "Legal", "Digital Rights", "Consumer Protection"]
-                    }
-                ]
-                
-                for job in mock_jobs:
-                    relevance_score = self.calculate_relevance_score(job)
-                    if relevance_score >= 45:  # Government positions threshold
-                        job['relevance_score'] = relevance_score
-                        jobs.append(job)
-                        
-            except Exception as e:
-                print(f"Government positions scraping error: {e}")
-                
-            return jobs
-    
-           def scrape_global_opportunities(self) -> List[Dict]: 
-                """Global job opportunities and international organizations"""
-                jobs = []
-                
-                try:
-                    mock_jobs = [
-                        {
-                            "title": "AI Governance Specialist",
-                            "company": "OECD",
-                            "location": "Paris, France",
-                            "job_type": "international",
-                            "category": "policy",  # ✅ 새 카테고리
-                            "description": "Develop international standards and guidelines for AI governance...",
-                            "posting_date": (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d"),
-                            "deadline": (datetime.now() + timedelta(days=40)).strftime("%Y-%m-%d"),
-                            "source_url": "https://www.oecd.org/careers/ai-governance-specialist",
-                            "source_site": "oecd",
-                            "tags": ["International", "AI Governance", "Policy"],
-                            "relevance_score": 90  # 직접 점수 설정 (calculate 함수 호출 안함)
-                        },
-                        {
-                            "title": "Digital Rights Program Officer",
-                            "company": "United Nations",
-                            "location": "Geneva, Switzerland",
-                            "job_type": "international",
-                            "category": "legal",  # ✅ 새 카테고리
-                            "description": "Support UN initiatives on digital rights and AI ethics...",
-                            "posting_date": (datetime.now() - timedelta(days=5)).strftime("%Y-%m-%d"),
-                            "deadline": (datetime.now() + timedelta(days=30)).strftime("%Y-%m-%d"),
-                            "source_url": "https://careers.un.org/digital-rights",
-                            "source_site": "un_careers",
-                            "tags": ["UN", "Digital Rights", "Legal"],
-                            "relevance_score": 88
-                        }
-                        # 나머지도 동일하게 카테고리 수정...
-                    ]
+            for job in mock_jobs:
+                relevance_score = self.calculate_relevance_score(job)
+                if relevance_score >= 45:  # Government positions threshold
+                    job['relevance_score'] = relevance_score
+                    jobs.append(job)
                     
-                    # calculate_relevance_score 호출 제거하고 직접 점수 설정
-                    jobs.extend(mock_jobs)
-                            
-                except Exception as e:
-                    print(f"Global opportunities scraping error: {e}")
+        except Exception as e:
+            print(f"Government positions scraping error: {e}")
+            
+        return jobs
+
+    def scrape_global_opportunities(self) -> List[Dict]: 
+        """Global job opportunities and international organizations"""
+        jobs = []
+        
+        try:
+            mock_jobs = [
+                {
+                    "title": "AI Governance Specialist",
+                    "company": "OECD",
+                    "location": "Paris, France",
+                    "job_type": "international",
+                    "category": "policy",
+                    "description": "Develop international standards and guidelines for AI governance. Work with member countries on AI policy coordination and best practices for responsible AI development.",
+                    "posting_date": (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d"),
+                    "deadline": (datetime.now() + timedelta(days=40)).strftime("%Y-%m-%d"),
+                    "source_url": "https://www.oecd.org/careers/ai-governance-specialist",
+                    "source_site": "oecd",
+                    "tags": ["International", "AI Governance", "Policy"],
+                    "relevance_score": 90
+                },
+                {
+                    "title": "Digital Rights Program Officer",
+                    "company": "United Nations",
+                    "location": "Geneva, Switzerland",
+                    "job_type": "international",
+                    "category": "law",
+                    "description": "Support UN initiatives on digital rights and AI ethics. Develop frameworks for human rights in digital spaces and coordinate international cooperation on AI governance.",
+                    "posting_date": (datetime.now() - timedelta(days=5)).strftime("%Y-%m-%d"),
+                    "deadline": (datetime.now() + timedelta(days=30)).strftime("%Y-%m-%d"),
+                    "source_url": "https://careers.un.org/digital-rights",
+                    "source_site": "un_careers",
+                    "tags": ["UN", "Digital Rights", "Legal"],
+                    "relevance_score": 88
+                }
+            ]
+            
+            # Use pre-set scores instead of calculate_relevance_score
+            jobs.extend(mock_jobs)
                     
-                return jobs
+        except Exception as e:
+            print(f"Global opportunities scraping error: {e}")
+            
+        return jobs
 
     def run_scraping(self) -> Dict[str, Any]:
         """Execute scraping from all sources"""
