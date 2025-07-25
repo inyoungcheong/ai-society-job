@@ -25,9 +25,8 @@ class JSearchJobScraper:
         
         # Optimized search queries for AI & Society field
         self.search_queries = [
-            "AI ethics researcher",
-            "AI policy analyst", 
-            "responsible AI"
+    "responsible ai", "ai governance", "algorithmic fairness", "ai ethics", 
+    "digital ethics", "ai policy"
         ]
         
         # Priority countries for job search
