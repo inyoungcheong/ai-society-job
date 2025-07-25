@@ -1,4 +1,17 @@
-<!DOCTYPE html>
+.tag {
+            background: #f1f5f9;
+            color: #06b6d4;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(6, 182, 212, 0.2);
+        }        .job-company {
+            color: #06b6d4;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -270,15 +283,38 @@
             flex-wrap: wrap;
         }
 
-        .tag {
-            background: #f1f5f9;
-            color: #06b6d4;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
+        .gemini-badge {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            margin-left: 0.5rem;
             font-weight: 500;
-            border: 1px solid rgba(6, 182, 212, 0.2);
         }
+        
+        .gemini-reasoning {
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background: #f8fafc;
+            border-left: 3px solid #06b6d4;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.85rem;
+            color: #475569;
+            font-style: italic;
+        }
+        
+        .tag.confidence-high { background: #dcfce7; color: #166534; border-color: rgba(22, 101, 52, 0.2); }
+        .tag.confidence-medium { background: #fef3c7; color: #92400e; border-color: rgba(146, 64, 14, 0.2); }
+        .tag.confidence-low { background: #fee2e2; color: #991b1b; border-color: rgba(153, 27, 27, 0.2); }
+        
+        .tag.topic { background: #ede9fe; color: #6b21a8; border-color: rgba(107, 33, 168, 0.2); }
+        .tag.remote { background: #ecfdf5; color: #059669; border-color: rgba(5, 150, 105, 0.2); }
+        
+        .tag.source-linkedin { background: #dbeafe; color: #1e40af; border-color: rgba(30, 64, 175, 0.2); }
+        .tag.source-jsearch { background: #fef3c7; color: #d97706; border-color: rgba(217, 119, 6, 0.2); }
+        .tag.source-academic { background: #f3e8ff; color: #7c2d12; border-color: rgba(124, 45, 18, 0.2); }
+        .tag.source-other { background: #f1f5f9; color: #475569; border-color: rgba(71, 85, 105, 0.2); }
 
         .tag.faculty { background: #f0f9ff; color: #0369a1; border-color: rgba(3, 105, 161, 0.2); }
         .tag.industry { background: #fff7ed; color: #ea580c; border-color: rgba(234, 88, 12, 0.2); }
@@ -430,58 +466,165 @@
         let filteredJobs = [];
         let currentSort = 'relevance';
 
-        // Load jobs data
+        // Load jobs from integrated master file first, then fallback to individual sources
         async function loadJobs() {
             try {
-                const files = ['data/jsearch_jobs.json', 'data/ajo_gemini_jobs.json'];
-                const allData = await Promise.all(files.map(f => fetch(f).then(res => res.json())));
-        
-                const combinedJobs = [];
-                const combinedStats = {
-                    total: 0,
-                    by_job_type: {
-                        faculty: 0,
-                        industry: 0,
-                        nonprofit: 0,
-                        government: 0,
-                        international: 0
+                let allJobsFromSources = [];
+                let dataSource = 'unknown';
+                
+                // Priority 1: Load integrated master file
+                try {
+                    const masterResponse = await fetch('data/all_jobs_integrated.json');
+                    const masterData = await masterResponse.json();
+                    if (masterData.jobs && masterData.jobs.length > 0) {
+                        allJobsFromSources = masterData.jobs;
+                        dataSource = 'integrated';
+                        console.log(`✅ Loaded ${masterData.jobs.length} jobs from integrated master file`);
+                        
+                        // Update with integrated stats if available
+                        if (masterData.stats) {
+                            updateStats(masterData.stats);
+                        }
+                        if (masterData.metadata) {
+                            updateLastUpdate(masterData.metadata.last_update || new Date().toISOString());
+                        }
+                        
+                        // Show data source info
+                        showDataSourceInfo(masterData);
                     }
-                };
-        
-                allData.forEach((data, index) => {
-                    const sourceLabel = files[index].includes('ajo') ? 'AJO' : 'JSearch';
-        
-                    (data.jobs || []).forEach(job => {
-                        job.source_origin = sourceLabel; // 🔖 추적용
-                        combinedJobs.push(job);
-                    });
-        
-                    const stats = data.stats || {};
-                    combinedStats.total += stats.total || 0;
-        
-                    const jobTypes = stats.by_job_type || {};
-                    for (const key in combinedStats.by_job_type) {
-                        combinedStats.by_job_type[key] += jobTypes[key] || 0;
+                } catch (error) {
+                    console.log('Integrated master file not available, trying individual sources...');
+                }
+                
+                // Fallback: Load from individual sources if master file not available
+                if (allJobsFromSources.length === 0) {
+                    console.log('🔄 Loading from individual data sources...');
+                    
+                    // Load from JSearch data
+                    try {
+                        const jsearchResponse = await fetch('data/jsearch_jobs.json');
+                        const jsearchData = await jsearchResponse.json();
+                        if (jsearchData.jobs) {
+                            allJobsFromSources = allJobsFromSources.concat(jsearchData.jobs);
+                            console.log(`Loaded ${jsearchData.jobs.length} jobs from JSearch`);
+                        }
+                    } catch (error) {
+                        console.log('JSearch data not available');
                     }
-                });
-        
-                allJobs = combinedJobs;
+                    
+                    // Load from general scraper data
+                    try {
+                        const generalResponse = await fetch('data/jobs.json');
+                        const generalData = await generalResponse.json();
+                        if (generalData.jobs) {
+                            allJobsFromSources = allJobsFromSources.concat(generalData.jobs);
+                            console.log(`Loaded ${generalData.jobs.length} jobs from general scraper`);
+                        }
+                    } catch (error) {
+                        console.log('General scraper data not available');
+                    }
+                    
+                    // Load from LinkedIn data
+                    try {
+                        const linkedinResponse = await fetch('data/linkedin_gemini_jobs.json');
+                        const linkedinData = await linkedinResponse.json();
+                        if (linkedinData.jobs) {
+                            allJobsFromSources = allJobsFromSources.concat(linkedinData.jobs);
+                            console.log(`Loaded ${linkedinData.jobs.length} jobs from LinkedIn`);
+                        }
+                    } catch (error) {
+                        console.log('LinkedIn data not available');
+                    }
+                    
+                    // Load from Academic/Gemini data
+                    try {
+                        const academicResponse = await fetch('data/ajo_gemini_jobs.json');
+                        const academicData = await academicResponse.json();
+                        if (academicData.jobs) {
+                            allJobsFromSources = allJobsFromSources.concat(academicData.jobs);
+                            console.log(`Loaded ${academicData.jobs.length} jobs from Academic`);
+                        }
+                    } catch (error) {
+                        console.log('Academic data not available');
+                    }
+                    
+                    dataSource = 'individual';
+                }
+                
+                // Remove duplicates if loading from individual sources
+                let uniqueJobs;
+                if (dataSource === 'individual') {
+                    uniqueJobs = removeDuplicateJobs(allJobsFromSources);
+                    updateStats(calculateCombinedStats(uniqueJobs));
+                    updateLastUpdate(new Date().toISOString());
+                } else {
+                    uniqueJobs = allJobsFromSources; // Already processed in master file
+                }
+                
+                allJobs = uniqueJobs;
                 filteredJobs = [...allJobs];
-        
-                updateStats(combinedStats);
-        
-                // 최근 업데이트 날짜 중 가장 최신 것 사용
-                const timestamps = allData.map(d => new Date(d.metadata?.last_update || 0));
-                const latest = new Date(Math.max(...timestamps));
-                updateLastUpdate(latest.toISOString());
-        
                 renderJobs();
+                
+                console.log(`🎯 Total jobs loaded: ${allJobs.length} (source: ${dataSource})`);
+                
             } catch (error) {
                 console.error('Error loading jobs:', error);
                 loadDemoData();
             }
         }
-
+        
+        // Show data source information
+        function showDataSourceInfo(masterData) {
+            if (masterData.stats && masterData.stats.sources) {
+                const sources = masterData.stats.sources;
+                console.log('📊 Data sources breakdown:');
+                console.log(`   Academic: ${sources.academic || 0}`);
+                console.log(`   JSearch: ${sources.jsearch || 0}`);
+                console.log(`   LinkedIn: ${sources.linkedin || 0}`);
+            }
+        }
+        
+        // Remove duplicate jobs based on source URL
+        function removeDuplicateJobs(jobs) {
+            const seen = new Set();
+            return jobs.filter(job => {
+                const key = job.source_url || `${job.title}-${job.company}`;
+                if (seen.has(key)) {
+                    return false;
+                }
+                seen.add(key);
+                return true;
+            });
+        }
+        
+        // Calculate combined statistics
+        function calculateCombinedStats(jobs) {
+            const stats = {
+                total: jobs.length,
+                by_job_type: {},
+                by_category: {},
+                new_today: 0
+            };
+            
+            const today = new Date().toISOString().split('T')[0];
+            
+            jobs.forEach(job => {
+                // Count by job type
+                const jobType = job.job_type || 'unknown';
+                stats.by_job_type[jobType] = (stats.by_job_type[jobType] || 0) + 1;
+                
+                // Count by category
+                const category = job.category || 'unknown';
+                stats.by_category[category] = (stats.by_category[category] || 0) + 1;
+                
+                // Count new today
+                if (job.posting_date === today) {
+                    stats.new_today++;
+                }
+            });
+            
+            return stats;
+        }
 
         // Demo data fallback
         function loadDemoData() {
@@ -574,7 +717,7 @@
             document.getElementById('last-update').textContent = date.toLocaleString('en-US');
         }
 
-        // Render job listings
+        // Render job listings with enhanced Gemini features
         function renderJobs() {
             const jobList = document.getElementById('job-list');
             
@@ -591,6 +734,7 @@
                                 <a href="${job.source_url}" target="_blank" rel="noopener noreferrer">
                                     ${job.title}
                                 </a>
+                                ${job.gemini_analyzed ? '<span class="gemini-badge">🤖 AI Analyzed</span>' : ''}
                             </div>
                             <div class="job-company">${job.company}</div>
                             <div class="job-meta">
@@ -598,21 +742,39 @@
                                 <span>📅 ${new Date(job.posting_date).toLocaleDateString('en-US')}</span>
                                 ${job.deadline ? `<span>⏰ Deadline: ${new Date(job.deadline).toLocaleDateString('en-US')}</span>` : ''}
                                 ${job.salary_info ? `<span>💰 ${job.salary_info}</span>` : ''}
+                                ${job.career_level ? `<span>👔 ${job.career_level.charAt(0).toUpperCase() + job.career_level.slice(1)}</span>` : ''}
                             </div>
                             <div class="job-tags">
                                 <span class="tag ${job.job_type}">${job.job_type}</span>
                                 <span class="tag ${job.category}">${job.category}</span>
-                                <span class="tag">${job.source_origin}</span>
-                                ${job.tags ? job.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('') : ''}
-                                ${job.is_remote ? '<span class="tag">Remote</span>' : ''}
+                                ${job.confidence ? `<span class="tag confidence-${job.confidence}">${job.confidence} confidence</span>` : ''}
+                                ${job.key_topics ? job.key_topics.slice(0, 2).map(topic => `<span class="tag topic">${topic}</span>`).join('') : ''}
+                                ${job.tags ? job.tags.slice(0, 2).map(tag => `<span class="tag">${tag}</span>`).join('') : ''}
+                                ${job.is_remote ? '<span class="tag remote">Remote</span>' : ''}
+                                ${getSourceBadge(job)}
                             </div>
+                            ${job.gemini_reasoning ? `<div class="gemini-reasoning">🤖 ${job.gemini_reasoning.substring(0, 120)}...</div>` : ''}
                         </div>
-                        <div class="relevance-score">${job.relevance_score}%</div>
+                        <div class="relevance-score">${job.relevance_score || job.basic_relevance_score || 60}%</div>
                     </div>
                 </div>
             `).join('');
 
             jobList.innerHTML = jobsHTML;
+        }
+        
+        // Get source badge based on job data
+        function getSourceBadge(job) {
+            if (job.source_site === 'linkedin') {
+                return '<span class="tag source-linkedin">LinkedIn</span>';
+            } else if (job.source_site === 'google_jobs') {
+                return '<span class="tag source-jsearch">Google Jobs</span>';
+            } else if (job.source_site === 'academic_jobs_online') {
+                return '<span class="tag source-academic">Academic</span>';
+            } else if (job.source_site === '80000hours' || job.source_site === 'indeed') {
+                return '<span class="tag source-other">Curated</span>';
+            }
+            return '';
         }
 
         // Apply filters
