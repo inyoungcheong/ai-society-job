@@ -3,7 +3,7 @@ name: Daily Job Scraping
 on:
   # Run daily at 2 AM UTC
   schedule:
-    - cron: '0 2 * * *'
+    - cron: '0 2 * * 1,4'
   
   # Allow manual execution
   workflow_dispatch:
