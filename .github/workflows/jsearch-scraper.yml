@@ -1,4 +1,4 @@
-name: JSearch Job Scraper
+name: JSearch Job Scraper 
 
 on:
   schedule:
