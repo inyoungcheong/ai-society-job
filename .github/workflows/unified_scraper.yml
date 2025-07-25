@@ -306,20 +306,7 @@ jobs:
           
           # Add job counts if available
           if [ -f "data/all_jobs_integrated.json" ]; then
-            python3 -c "
-import json
-try:
-    with open('data/all_jobs_integrated.json', 'r') as f:
-        data = json.load(f)
-    stats = data['stats']
-    print('📈 Results: {} unique jobs'.format(stats.get('total_jobs', stats.get('total', 0))))
-    print('   Academic: {}'.format(stats.get('sources', {}).get('academic', 0)))
-    print('   JSearch: {}'.format(stats.get('sources', {}).get('jsearch', 0)))
-    print('   LinkedIn: {}'.format(stats.get('sources', {}).get('linkedin', 0)))
-    print('   High relevance: {}'.format(stats.get('high_relevance', 0)))
-except:
-    print('📈 Job data updated')
-" >> commit_msg.tmp
+            echo "📈 Job data updated with integrated results" >> commit_msg.tmp
           fi
           
           git commit -F commit_msg.tmp
@@ -365,3 +352,4 @@ except:
         
         # Cleanup temporary files
         rm -f commit_msg.tmp linkedin_scraper.js linkedin_gemini_analyzer.py integrate_data.py create_summary.py get_stats.py 2>/dev/null || true
+        
