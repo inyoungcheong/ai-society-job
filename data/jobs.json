@@ -190,6 +190,42 @@
       "relevance_score": 95
     },
     {
+      "title": "AI Governance Specialist",
+      "company": "OECD",
+      "location": "Paris, France",
+      "job_type": "international",
+      "category": "policy",
+      "description": "Develop international standards and guidelines for AI governance. Work with member countries on AI policy coordination and best practices for responsible AI development.",
+      "posting_date": "2025-07-18",
+      "deadline": "2025-09-03",
+      "source_url": "https://www.oecd.org/careers/ai-governance-specialist",
+      "source_site": "oecd",
+      "tags": [
+        "International",
+        "AI Governance",
+        "Policy"
+      ],
+      "relevance_score": 90
+    },
+    {
+      "title": "Digital Rights Program Officer",
+      "company": "United Nations",
+      "location": "Geneva, Switzerland",
+      "job_type": "international",
+      "category": "law",
+      "description": "Support UN initiatives on digital rights and AI ethics. Develop frameworks for human rights in digital spaces and coordinate international cooperation on AI governance.",
+      "posting_date": "2025-07-20",
+      "deadline": "2025-08-24",
+      "source_url": "https://careers.un.org/digital-rights",
+      "source_site": "un_careers",
+      "tags": [
+        "UN",
+        "Digital Rights",
+        "Legal"
+      ],
+      "relevance_score": 88
+    },
+    {
       "title": "Digital Rights Legal Counsel",
       "company": "Federal Trade Commission (FTC)",
       "location": "Washington, DC",
@@ -205,158 +241,6 @@
         "Legal",
         "Digital Rights",
         "Consumer Protection"
-      ],
-      "relevance_score": 95
-    },
-    {
-      "title": "AI Governance Specialist",
-      "company": "OECD (Organisation for Economic Co-operation and Development)",
-      "location": "Paris, France",
-      "job_type": "international",
-      "category": "policy",
-      "description": "Develop international standards and guidelines for AI governance. Lead cross-country initiatives on AI policy coordination, digital transformation, and responsible AI deployment across OECD member countries.",
-      "posting_date": "2025-07-18",
-      "deadline": "2025-09-03",
-      "source_url": "https://www.oecd.org/careers/ai-governance-specialist",
-      "source_site": "oecd",
-      "tags": [
-        "International",
-        "AI Governance",
-        "Policy Coordination",
-        "Global Standards"
-      ],
-      "relevance_score": 95
-    },
-    {
-      "title": "Digital Rights Program Officer",
-      "company": "United Nations (UN)",
-      "location": "Geneva, Switzerland",
-      "job_type": "international",
-      "category": "law",
-      "description": "Support UN initiatives on digital rights, AI ethics, and technology governance. Work on global frameworks for responsible AI use and digital human rights protection across member states.",
-      "posting_date": "2025-07-20",
-      "deadline": "2025-08-24",
-      "source_url": "https://careers.un.org/lbw/jobdetail.aspx?id=digital-rights",
-      "source_site": "un_careers",
-      "tags": [
-        "UN",
-        "Digital Rights",
-        "International Law",
-        "Human Rights"
-      ],
-      "relevance_score": 95
-    },
-    {
-      "title": "AI Safety Research Scientist",
-      "company": "DeepMind (Alphabet)",
-      "location": "London, UK",
-      "job_type": "industry",
-      "category": "cs",
-      "description": "Conduct fundamental research on AI safety and alignment. Focus on developing safer AI systems, interpretability, and robustness. Collaborate with global research community on AI safety challenges.",
-      "posting_date": "2025-07-22",
-      "deadline": null,
-      "source_url": "https://careers.google.com/jobs/deepmind-ai-safety",
-      "source_site": "deepmind_careers",
-      "tags": [
-        "AI Safety",
-        "Research",
-        "Global Team",
-        "Technical"
-      ],
-      "relevance_score": 95
-    },
-    {
-      "title": "Technology Ethics Researcher",
-      "company": "Future of Humanity Institute",
-      "location": "Oxford, UK",
-      "job_type": "nonprofit",
-      "category": "cs",
-      "description": "Research long-term implications of AI and emerging technologies. Focus on existential risk from AI, global coordination problems, and ethical frameworks for transformative AI development.",
-      "posting_date": "2025-07-17",
-      "deadline": "2025-08-19",
-      "source_url": "https://www.fhi.ox.ac.uk/careers/tech-ethics-researcher",
-      "source_site": "fhi_oxford",
-      "tags": [
-        "Ethics",
-        "Long-term Research",
-        "Existential Risk",
-        "Oxford"
-      ],
-      "relevance_score": 95
-    },
-    {
-      "title": "AI Policy Advisor",
-      "company": "European Commission",
-      "location": "Brussels, Belgium",
-      "job_type": "government",
-      "category": "policy",
-      "description": "Advise on EU AI Act implementation and digital single market policies. Work on European AI strategy, regulatory frameworks, and international cooperation on AI governance.",
-      "posting_date": "2025-07-21",
-      "deadline": "2025-08-29",
-      "source_url": "https://epso.europa.eu/job/ai-policy-advisor",
-      "source_site": "eu_careers",
-      "tags": [
-        "EU",
-        "AI Act",
-        "European Policy",
-        "Regulatory"
-      ],
-      "relevance_score": 95
-    },
-    {
-      "title": "Research Fellow - AI and Global Development",
-      "company": "Cambridge University (Centre for AI Safety)",
-      "location": "Cambridge, UK",
-      "job_type": "faculty",
-      "category": "cs",
-      "description": "Research AI applications for global development challenges. Focus on AI for social good, ethical AI deployment in developing countries, and international AI cooperation frameworks.",
-      "posting_date": "2025-07-23",
-      "deadline": "2025-09-08",
-      "source_url": "https://www.cam.ac.uk/jobs/ai-global-development-fellow",
-      "source_site": "cambridge_careers",
-      "tags": [
-        "Cambridge",
-        "AI for Good",
-        "Global Development",
-        "Research Fellow"
-      ],
-      "relevance_score": 95
-    },
-    {
-      "title": "Technology and Human Rights Specialist",
-      "company": "Amnesty International",
-      "location": "London, UK",
-      "job_type": "nonprofit",
-      "category": "law",
-      "description": "Research and advocacy on technology's impact on human rights. Focus on AI surveillance, algorithmic bias, and digital rights violations. Lead global campaigns on tech accountability.",
-      "posting_date": "2025-07-16",
-      "deadline": "2025-08-12",
-      "source_url": "https://www.amnesty.org/careers/tech-human-rights",
-      "source_site": "amnesty_careers",
-      "tags": [
-        "Human Rights",
-        "Tech Accountability",
-        "Global Advocacy",
-        "NGO"
-      ],
-      "relevance_score": 95
-    },
-    {
-      "title": "Digital Innovation Fellow",
-      "company": "World Economic Forum",
-      "location": "Geneva, Switzerland / Remote",
-      "job_type": "international",
-      "category": "policy",
-      "description": "Lead initiatives on responsible technology adoption and digital transformation. Engage with global leaders on AI governance, digital economy, and future of work implications.",
-      "posting_date": "2025-07-19",
-      "deadline": "2025-08-14",
-      "source_url": "https://www.weforum.org/careers/digital-innovation-fellow",
-      "source_site": "wef_careers",
-      "tags": [
-        "WEF",
-        "Global Leadership",
-        "Digital Economy",
-        "Innovation"
       ],
       "relevance_score": 85
     },
@@ -380,21 +264,21 @@
     }
   ],
   "stats": {
-    "total": 20,
-    "faculty": 4,
-    "industry": 4,
-    "nonprofit": 5,
-    "government": 4,
-    "international": 3,
+    "total": 14,
+    "faculty": 3,
+    "industry": 3,
+    "nonprofit": 3,
+    "government": 3,
+    "international": 2,
     "new_today": 2,
     "by_category": {
-      "law": 5,
-      "policy": 7,
-      "cs": 7,
+      "law": 4,
+      "policy": 5,
+      "cs": 4,
       "ischool": 1
     }
   },
-  "last_update": "2025-07-25T08:28:36.913275",
-  "total_scraped": 20,
+  "last_update": "2025-07-25T11:55:20.711025",
+  "total_scraped": 14,
   "duplicates_removed": 0
 }
