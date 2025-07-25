@@ -57,15 +57,17 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        
-        # Pull latest changes first
-        git pull origin main --rebase
-        
-        # Add and commit new data
+    
+        # 최신 브랜치 fetch
+        git fetch origin main
+    
+        # 변경사항 스테이징 및 커밋
         git add data/
         if ! git diff --staged --quiet; then
           git commit -m "Update job data: $(date '+%Y-%m-%d %H:%M UTC')"
-          git push origin main
-        else
-          echo "No changes to commit"
         fi
+    
+        # main 브랜치와 fast-forward 병합
+        git pull origin main --no-rebase --no-edit || true
+    
+        git push origin main
