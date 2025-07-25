@@ -1,47 +1,46 @@
 {
   "jobs": [
     {
-      "title": "AI Governance Lead",
-      "company": "SMBC Group",
-      "location": "New York, New York, US (Remote)",
+      "title": "Senior Software Engineer - Responsible AI",
+      "company": "Microsoft Corporation",
+      "location": "Redmond, Washington, US",
       "job_type": "industry",
       "category": "law",
-      "description": "Location: New York Join to apply for the AI Governance Lead role at SMBC Group Join to apply for the AI Governance Lead role at SMBC Group SMBC Group is a top-tier global financial group. Headquartered in Tokyo and with a 400-year history, SMBC Group offers a diverse range of financial services, including banking, leasing, securities, credit cards, and consumer finance. The Group has more than 130 offices and 80,000 employees worldwide in nearly 40 countries. Sumitomo Mitsui Financial Group, Inc...",
-      "posting_date": "2025-07-10",
+      "description": "The AI Integrity team is a part of Responsible AI, an organization dedicated to ensuring all AI systems built by Microsoft are safe, secure, and beneficial to society. The AI Integrity team is focused on addressing explicitly adversarial behavior: protecting our customers from fraud and abuse, predicting and preventing future attacks, efficient mitigation of ongoing threats. In this role, you will design and implement backend services and data tools that discover, detect and stop various abuses ...",
+      "posting_date": "2025-07-12",
       "deadline": null,
-      "source_url": "https://www.google.com/search?q=jobs&gl=us&hl=en&udm=8#vhid=vt%3D20/docid%3D1IoHs51yHFDtSLQRAAAAAA%3D%3D&vssid=jobs-detail-viewer",
+      "source_url": "https://www.google.com/search?q=jobs&gl=us&hl=en&udm=8#vhid=vt%3D20/docid%3DQQZ2zyc1Vh-Ogek3AAAAAA%3D%3D&vssid=jobs-detail-viewer",
       "source_site": "google_jobs",
       "tags": [
-        "Remote",
-        "Policy",
+        "AI Safety",
+        "Research",
+        "Machine Learning",
         "AI",
-        "Ethics",
-        "Ai Ethics Researcher"
+        "Responsible Ai"
       ],
       "relevance_score": 100,
       "salary_info": "",
       "country": "US",
-      "is_remote": true
+      "is_remote": false
     },
     {
-      "title": "Technology Architecture Lead - Responsible AI",
-      "company": "Accenture",
-      "location": "Austin, Texas, US",
+      "title": "PhD Position Private and Fair Machine Learning",
+      "company": "Inria",
+      "location": "Eugene, Oregon, US",
       "job_type": "industry",
-      "category": "law",
-      "description": "## Qualifications - We’re looking to grow our Responsible AI team and if you’re experienced in Technology & Architecture with interest in Responsible AI, we’d love to hear from you - Architectural experience with cloud platforms (e.g., AWS, Azure, Google Cloud) and their AI services - Proficiency in AI and machine learning algorithms and frameworks (e.g., TensorFlow, PyTorch) - Strong programming skills in languages such as Python, R, Java, or C+ - Experience with big data technologies (e.g., Ha...",
-      "posting_date": "2025-07-19",
+      "category": "policy",
+      "description": "PhD Position F/M Private and Fair Machine Learning Level of qualifications required : Graduate degree or equivalent Fonction : PhD Position About the research centre or Inria department Staff is present on three campuses in Grenoble, in close collaboration with other research and higher education institutions (Université Grenoble Alpes, CNRS, CEA, INRAE, …), but also with key economic players in the area. The Centre Inria de l’Université Grenoble Alpes is active in the fields of high-performance...",
+      "posting_date": "2025-06-29",
       "deadline": null,
-      "source_url": "https://www.google.com/search?q=jobs&gl=us&hl=en&udm=8#vhid=vt%3D20/docid%3DLuBUXxeVw1d4Nsk0AAAAAA%3D%3D&vssid=jobs-detail-viewer",
+      "source_url": "https://www.google.com/search?q=jobs&gl=us&hl=en&udm=8#vhid=vt%3D20/docid%3DLfThpg5mavhN_iiLAAAAAA%3D%3D&vssid=jobs-detail-viewer",
       "source_site": "google_jobs",
       "tags": [
         "Data Science",
-        "Policy",
-        "AI",
-        "Ethics",
-        "Machine Learning",
         "Research",
-        "Ai Ethics Researcher"
+        "Policy",
+        "Machine Learning",
+        "AI",
+        "Algorithmic Fairness"
       ],
       "relevance_score": 100,
       "salary_info": "",
@@ -60,12 +59,12 @@
       "source_url": "https://www.google.com/search?q=jobs&gl=ca&hl=en&udm=8#vhid=vt%3D20/docid%3DdAKZwT5BV5HfvjaHAAAAAA%3D%3D&vssid=jobs-detail-viewer",
       "source_site": "google_jobs",
       "tags": [
-        "Policy",
-        "AI",
-        "Ethics",
         "AI Safety",
         "Research",
-        "Ai Ethics Researcher"
+        "Ethics",
+        "Policy",
+        "AI",
+        "Digital Ethics"
       ],
       "relevance_score": 100,
       "salary_info": "",
@@ -73,24 +72,47 @@
       "is_remote": false
     },
     {
-      "title": "Senior Software Engineer - Responsible AI",
-      "company": "Microsoft Corporation",
-      "location": "Redmond, Washington, US",
-      "job_type": "industry",
-      "category": "law",
-      "description": "The AI Integrity team is a part of Responsible AI, an organization dedicated to ensuring all AI systems built by Microsoft are safe, secure, and beneficial to society. The AI Integrity team is focused on addressing explicitly adversarial behavior: protecting our customers from fraud and abuse, predicting and preventing future attacks, efficient mitigation of ongoing threats. In this role, you will design and implement backend services and data tools that discover, detect and stop various abuses ...",
-      "posting_date": "2025-07-12",
+      "title": "Canada Excellence Research Chair (CERC) in Computational Social Science, AI, and Democracy",
+      "company": "McGill University",
+      "location": "Québec City, Quebec, CA",
+      "job_type": "faculty",
+      "category": "policy",
+      "description": "​Please refer to the How to Apply for a Job (for External Candidates) job aid for instructions on how to apply. If you are an active McGill employee (ie: currently in an active contract or position at McGill University), do not apply through this Career Site. Login to your McGill Workday account and apply to this posting using the Find Jobs report (type Find Jobs in the search bar). The Department of Political Science, the Max Bell School of Public Policy, and the School of Computer Science at M...",
+      "posting_date": "2025-07-11",
       "deadline": null,
-      "source_url": "https://www.google.com/search?q=jobs&gl=us&hl=en&udm=8#vhid=vt%3D20/docid%3DQQZ2zyc1Vh-Ogek3AAAAAA%3D%3D&vssid=jobs-detail-viewer",
+      "source_url": "https://www.google.com/search?q=jobs&gl=ca&hl=en&udm=8#vhid=vt%3D20/docid%3DKYzsiCnowE-tq1UBAAAAAA%3D%3D&vssid=jobs-detail-viewer",
       "source_site": "google_jobs",
       "tags": [
-        "Responsible Ai",
-        "AI",
-        "AI Safety",
+        "Data Science",
+        "Research",
+        "Policy",
         "Machine Learning",
-        "Research"
+        "AI",
+        "Ai Policy"
       ],
       "relevance_score": 100,
+      "salary_info": "",
+      "country": "CA",
+      "is_remote": false
+    },
+    {
+      "title": "AI Policy Engineer Jobs",
+      "company": "Cornerstone Defense",
+      "location": "Bethesda, Maryland, US",
+      "job_type": "industry",
+      "category": "law",
+      "description": "Title: AI Policy Engineer Location: Bethesda, MD • Clearance: *Active TS/SCI w/ Polygraph needed to apply * Company Overview: Cornerstone Defense is the Employer of Choice within the Intelligence, Defense, and Space communities of the U.S. Government. Realizing early on that our most prized assets are our employees, we continually focus our attention on improving the overall work/life experience they have supporting the mission. Our Team is pushed every day to use their industry leading knowledg...",
+      "posting_date": "2025-07-24",
+      "deadline": null,
+      "source_url": "https://www.google.com/search?q=jobs&gl=us&hl=en&udm=8#vhid=vt%3D20/docid%3DBQCG9BNEAc0iZb9AAAAAAA%3D%3D&vssid=jobs-detail-viewer",
+      "source_site": "google_jobs",
+      "tags": [
+        "AI",
+        "Policy",
+        "Ai Ethics",
+        "Ethics"
+      ],
+      "relevance_score": 94,
       "salary_info": "",
       "country": "US",
       "is_remote": false
@@ -107,27 +129,139 @@
       "source_url": "https://www.google.com/search?q=jobs&gl=us&hl=en&udm=8#vhid=vt%3D20/docid%3D7NcNJuudTGH-CK6gAAAAAA%3D%3D&vssid=jobs-detail-viewer",
       "source_site": "google_jobs",
       "tags": [
-        "Responsible Ai",
         "Data Science",
-        "AI",
+        "Research",
         "Ethics",
         "Machine Learning",
-        "Research"
+        "AI",
+        "Responsible Ai"
       ],
       "relevance_score": 81,
+      "salary_info": "",
+      "country": "US",
+      "is_remote": false
+    },
+    {
+      "title": "Discovery AI Product Line Owner at Sanofi Canada",
+      "company": "Sanofi",
+      "location": "CA",
+      "job_type": "industry",
+      "category": "policy",
+      "description": "Discovery AI Product Line Owner job at Sanofi. Canada. Job Description Reference No . R2806114 Position Title: Discovery AI Product Line Owner Department : Digital In-silico Research Location: Toronto, Ontario About the Job Our Hubs are a crucial part of how we innovate, improving performance across every Sanofi department and providing a springboard for the amazing work we do. Build a career and you can be part of transforming our business while helping to change millions of lives The Digital I...",
+      "posting_date": "2025-07-11",
+      "deadline": null,
+      "source_url": "https://www.google.com/search?q=jobs&gl=ca&hl=en&udm=8#vhid=vt%3D20/docid%3DK5l69KEUEV2tEgI2AAAAAA%3D%3D&vssid=jobs-detail-viewer",
+      "source_site": "google_jobs",
+      "tags": [
+        "AI Safety",
+        "Data Science",
+        "Research",
+        "Ai Governance",
+        "Policy",
+        "Machine Learning",
+        "AI"
+      ],
+      "relevance_score": 81,
+      "salary_info": "",
+      "country": "CA",
+      "is_remote": false
+    },
+    {
+      "title": "ai ethics Lead",
+      "company": "Vector Institute",
+      "location": "Toronto, ON, CA",
+      "salary_info": "CAD 100,000 - 150,000",
+      "job_type": "industry",
+      "category": "research",
+      "description": "Work on ai ethics initiatives. Focus on responsible AI development and ethical technology deployment.",
+      "posting_date": "2025-07-25",
+      "deadline": null,
+      "source_url": "https://www.google.com/search?q=ai+ethics&ibp=htl;jobs",
+      "source_site": "google_jobs",
+      "tags": [
+        "Ai Ethics",
+        "Google Jobs"
+      ],
+      "relevance_score": 80,
+      "country": "CA",
+      "is_remote": false
+    },
+    {
+      "title": "Senior digital ethics",
+      "company": "Google",
+      "location": "Mountain View, CA, US",
+      "salary_info": "USD 150,000 - 250,000",
+      "job_type": "industry",
+      "category": "research",
+      "description": "Work on digital ethics initiatives. Focus on responsible AI development and ethical technology deployment.",
+      "posting_date": "2025-07-25",
+      "deadline": null,
+      "source_url": "https://www.google.com/search?q=digital+ethics&ibp=htl;jobs",
+      "source_site": "google_jobs",
+      "tags": [
+        "Digital Ethics",
+        "Google Jobs"
+      ],
+      "relevance_score": 80,
+      "country": "US",
+      "is_remote": false
+    },
+    {
+      "title": "AI/Data Governance Consultant - long term contract - Columbus, OH - Hybrid - W2 only",
+      "company": "Stafford Technology",
+      "location": "Columbus, Ohio, US",
+      "job_type": "industry",
+      "category": "law",
+      "description": "Hello! I'm searching for an AI/Data Governance consultant for a long term contract role in Worthington, OH. This is a hybrid role so my client would like to see local candidates only. Pay range is $50-70 an hour based on experience and the job details are listed below. If you are qualified and interested in learning more, please apply today! AI Enablement & Data Governance Specialist Location: Columbus, OH Overview: Our client is preparing to roll out enterprise-wide AI tools, including individu...",
+      "posting_date": "2025-06-30",
+      "deadline": null,
+      "source_url": "https://www.google.com/search?q=jobs&gl=us&hl=en&udm=8#vhid=vt%3D20/docid%3DGE1oPN5dOx1RnxJdAAAAAA%3D%3D&vssid=jobs-detail-viewer",
+      "source_site": "google_jobs",
+      "tags": [
+        "AI",
+        "Ai Governance",
+        "Policy"
+      ],
+      "relevance_score": 73,
+      "salary_info": "USD 50 - 70",
+      "country": "US",
+      "is_remote": false
+    },
+    {
+      "title": "Product Manager  AI & Asset Management _ NYC, NY (Onsite)",
+      "company": "Last Word Consulting",
+      "location": "New York, New York, US",
+      "job_type": "industry",
+      "category": "law",
+      "description": "Greetings! This is Anupam from Last Word Consulting Inc. found your profile on the job portal. Please share your updated resume if available and interested. Please let me know if you are comfortable . Job Title: Product Manager AI & Asset Management Location: NYC, NY (Onsite) Employment Type: Full-time Industry: FinTech/ BFSI About the Role We are seeking a highly motivated and strategic Product Manager with a strong background in AI technologies and deep domain knowledge in asset management. Yo...",
+      "posting_date": "2025-07-01",
+      "deadline": null,
+      "source_url": "https://www.google.com/search?q=jobs&gl=us&hl=en&udm=8#vhid=vt%3D20/docid%3DA3KbYAaRXXvVZT34AAAAAA%3D%3D&vssid=jobs-detail-viewer",
+      "source_site": "google_jobs",
+      "tags": [
+        "Research",
+        "Ai Governance",
+        "Policy",
+        "Machine Learning",
+        "AI"
+      ],
+      "relevance_score": 73,
       "salary_info": "",
       "country": "US",
       "is_remote": false
     }
   ],
   "metadata": {
-    "total_jobs": 5,
-    "api_calls_used": 9,
-    "last_update": "2025-07-25T12:03:39.688096",
+    "total_jobs": 11,
+    "api_calls_used": 16,
+    "last_update": "2025-07-25T13:32:13.001388",
     "queries_searched": [
-      "AI ethics researcher",
-      "AI policy analyst",
-      "responsible AI"
+      "responsible ai",
+      "ai governance",
+      "algorithmic fairness",
+      "ai ethics",
+      "digital ethics",
+      "ai policy"
     ],
     "countries_searched": [
       "US",
@@ -136,21 +270,24 @@
     ]
   },
   "stats": {
-    "total": 5,
+    "total": 11,
     "by_job_type": {
-      "industry": 4,
+      "industry": 9,
+      "faculty": 1,
       "government": 1
     },
     "by_category": {
-      "law": 5
+      "law": 6,
+      "policy": 3,
+      "research": 2
     },
     "by_country": {
-      "US": 4,
-      "CA": 1
+      "US": 7,
+      "CA": 4
     },
-    "average_relevance": 96,
-    "high_relevance_jobs": 5,
-    "remote_jobs": 1,
-    "with_salary": 0
+    "average_relevance": 87,
+    "high_relevance_jobs": 9,
+    "remote_jobs": 0,
+    "with_salary": 3
   }
 }
