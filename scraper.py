@@ -359,49 +359,49 @@ class AIJobScraper:
             return jobs
     
            def scrape_global_opportunities(self) -> List[Dict]: 
-        """Global job opportunities and international organizations"""
-        jobs = []
-        
-        try:
-            mock_jobs = [
-                {
-                    "title": "AI Governance Specialist",
-                    "company": "OECD",
-                    "location": "Paris, France",
-                    "job_type": "international",
-                    "category": "policy",  # ✅ 새 카테고리
-                    "description": "Develop international standards and guidelines for AI governance...",
-                    "posting_date": (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d"),
-                    "deadline": (datetime.now() + timedelta(days=40)).strftime("%Y-%m-%d"),
-                    "source_url": "https://www.oecd.org/careers/ai-governance-specialist",
-                    "source_site": "oecd",
-                    "tags": ["International", "AI Governance", "Policy"],
-                    "relevance_score": 90  # 직접 점수 설정 (calculate 함수 호출 안함)
-                },
-                {
-                    "title": "Digital Rights Program Officer",
-                    "company": "United Nations",
-                    "location": "Geneva, Switzerland",
-                    "job_type": "international",
-                    "category": "legal",  # ✅ 새 카테고리
-                    "description": "Support UN initiatives on digital rights and AI ethics...",
-                    "posting_date": (datetime.now() - timedelta(days=5)).strftime("%Y-%m-%d"),
-                    "deadline": (datetime.now() + timedelta(days=30)).strftime("%Y-%m-%d"),
-                    "source_url": "https://careers.un.org/digital-rights",
-                    "source_site": "un_careers",
-                    "tags": ["UN", "Digital Rights", "Legal"],
-                    "relevance_score": 88
-                }
-                # 나머지도 동일하게 카테고리 수정...
-            ]
-            
-            # calculate_relevance_score 호출 제거하고 직접 점수 설정
-            jobs.extend(mock_jobs)
+                """Global job opportunities and international organizations"""
+                jobs = []
+                
+                try:
+                    mock_jobs = [
+                        {
+                            "title": "AI Governance Specialist",
+                            "company": "OECD",
+                            "location": "Paris, France",
+                            "job_type": "international",
+                            "category": "policy",  # ✅ 새 카테고리
+                            "description": "Develop international standards and guidelines for AI governance...",
+                            "posting_date": (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d"),
+                            "deadline": (datetime.now() + timedelta(days=40)).strftime("%Y-%m-%d"),
+                            "source_url": "https://www.oecd.org/careers/ai-governance-specialist",
+                            "source_site": "oecd",
+                            "tags": ["International", "AI Governance", "Policy"],
+                            "relevance_score": 90  # 직접 점수 설정 (calculate 함수 호출 안함)
+                        },
+                        {
+                            "title": "Digital Rights Program Officer",
+                            "company": "United Nations",
+                            "location": "Geneva, Switzerland",
+                            "job_type": "international",
+                            "category": "legal",  # ✅ 새 카테고리
+                            "description": "Support UN initiatives on digital rights and AI ethics...",
+                            "posting_date": (datetime.now() - timedelta(days=5)).strftime("%Y-%m-%d"),
+                            "deadline": (datetime.now() + timedelta(days=30)).strftime("%Y-%m-%d"),
+                            "source_url": "https://careers.un.org/digital-rights",
+                            "source_site": "un_careers",
+                            "tags": ["UN", "Digital Rights", "Legal"],
+                            "relevance_score": 88
+                        }
+                        # 나머지도 동일하게 카테고리 수정...
+                    ]
                     
-        except Exception as e:
-            print(f"Global opportunities scraping error: {e}")
-            
-        return jobs
+                    # calculate_relevance_score 호출 제거하고 직접 점수 설정
+                    jobs.extend(mock_jobs)
+                            
+                except Exception as e:
+                    print(f"Global opportunities scraping error: {e}")
+                    
+                return jobs
 
     def run_scraping(self) -> Dict[str, Any]:
         """Execute scraping from all sources"""
