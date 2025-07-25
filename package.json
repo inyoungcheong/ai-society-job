@@ -1,0 +1,15 @@
+{
+  "name": "ai-society-job",
+  "version": "1.0.0",
+  "description": "An automated dashboard that collects and analyzes job postings in AI ethics, policy, law, and societal impact fields.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "linkedin-jobs-api": "^1.0.7"
+  }
+}
