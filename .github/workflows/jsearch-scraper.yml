@@ -1,4 +1,4 @@
-name: JSearch Job Scraper 
+name: JSearch Job Scraper
 
 on:
   schedule:
@@ -10,6 +10,11 @@ on:
       - 'j_scraper.py'
       - '.github/workflows/jsearch-scraper.yml'
 
+# Add explicit permissions
+permissions:
+  contents: write
+  actions: read
+
 jobs:
   scrape-jobs:
     runs-on: ubuntu-latest
@@ -17,7 +22,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-      
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
@@ -46,10 +53,19 @@ jobs:
           exit 1
         fi
         
-    - name: Commit and push results
+    - name: Sync with remote and push results
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
+        
+        # Pull latest changes first
+        git pull origin main --rebase
+        
+        # Add and commit new data
         git add data/
-        git diff --staged --quiet || git commit -m "Update job data: $(date '+%Y-%m-%d %H:%M UTC')"
-        git push
+        if ! git diff --staged --quiet; then
+          git commit -m "Update job data: $(date '+%Y-%m-%d %H:%M UTC')"
+          git push origin main
+        else
+          echo "No changes to commit"
+        fi
