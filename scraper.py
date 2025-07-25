@@ -357,8 +357,6 @@ class AIJobScraper:
             print(f"Government positions scraping error: {e}")
             
         return jobs
-
-    def scrape_global_opportunities(self) -> List[Dict]:
         """Scrape global job opportunities and international organizations"""
         jobs = []
         
@@ -587,6 +585,22 @@ def main():
         print("\n🎯 By Category:")
         for category, count in data['stats']['by_category'].items():
             print(f"   {category}: {count}")
+        
+        # Gemini 분석 정보 추가 출력
+        gemini_analyzed = len([j for j in data['jobs'] if 'gemini_reasoning' in j])
+        if gemini_analyzed > 0:
+            print(f"\n🤖 Gemini AI Analysis:")
+            print(f"   AI-analyzed jobs: {gemini_analyzed}")
+            print(f"   Average relevance: {sum(j.get('relevance_score', 0) for j in data['jobs']) // len(data['jobs'])}%")
+            
+            # 최고 품질 포지션들
+            top_jobs = sorted([j for j in data['jobs'] if j.get('relevance_score', 0) >= 80], 
+                            key=lambda x: x.get('relevance_score', 0), reverse=True)[:3]
+            
+            if top_jobs:
+                print(f"\n⭐ Top AI & Society Positions:")
+                for i, job in enumerate(top_jobs, 1):
+                    print(f"   {i}. {job['title']} - {job['company']} ({job['relevance_score']}%)")
             
         print(f"\n🕒 Last update: {data['last_update']}")
         
