@@ -273,14 +273,25 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "AI Society Job Scraper"
         
+        # Check for unstaged changes and stash if needed
+        if ! git diff --quiet; then
+          echo "Stashing unstaged changes..."
+          git stash
+        fi
+        
         # Pull latest changes to avoid conflicts
         git pull origin main --rebase || echo "No remote changes to pull"
         
+        # Pop stash if we stashed changes
+        if git stash list | grep -q "stash@{0}"; then
+          git stash pop || echo "Could not pop stash"
+        fi
+        
         # Add all data files
-        git add data/
+        git add data/ || echo "No data files to add"
         
         # Add any generated scraper files
-        git add *.js package.json *.py 2>/dev/null || true
+        git add *.js package.json *.py 2>/dev/null || echo "No additional files to add"
         
         # Check if there are changes to commit
         if ! git diff --staged --quiet; then
@@ -295,21 +306,20 @@ jobs:
           
           # Add job counts if available
           if [ -f "data/all_jobs_integrated.json" ]; then
-            cat > get_stats.py << 'EOF'
-            import json
-            try:
-                with open('data/all_jobs_integrated.json', 'r') as f:
-                    data = json.load(f)
-                stats = data['stats']
-                print(f'📈 Results: {stats["total_jobs"]} unique jobs')
-                print(f'   Academic: {stats["sources"]["academic"]}')
-                print(f'   JSearch: {stats["sources"]["jsearch"]}')  
-                print(f'   LinkedIn: {stats["sources"]["linkedin"]}')
-                print(f'   High relevance: {stats["high_relevance"]}')
-            except:
-                print('📈 Job data updated')
-            EOF
-            python get_stats.py >> commit_msg.tmp
+            python3 -c "
+import json
+try:
+    with open('data/all_jobs_integrated.json', 'r') as f:
+        data = json.load(f)
+    stats = data['stats']
+    print('📈 Results: {} unique jobs'.format(stats.get('total_jobs', stats.get('total', 0))))
+    print('   Academic: {}'.format(stats.get('sources', {}).get('academic', 0)))
+    print('   JSearch: {}'.format(stats.get('sources', {}).get('jsearch', 0)))
+    print('   LinkedIn: {}'.format(stats.get('sources', {}).get('linkedin', 0)))
+    print('   High relevance: {}'.format(stats.get('high_relevance', 0)))
+except:
+    print('📈 Job data updated')
+" >> commit_msg.tmp
           fi
           
           git commit -F commit_msg.tmp
@@ -323,7 +333,7 @@ jobs:
             else
               echo "⚠️ Push attempt $i failed, retrying..."
               sleep 5
-              git pull origin main --rebase || true
+              git pull origin main --rebase || echo "Failed to rebase, continuing..."
             fi
           done
         else
