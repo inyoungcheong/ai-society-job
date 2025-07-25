@@ -433,20 +433,55 @@
         // Load jobs data
         async function loadJobs() {
             try {
-                const response = await fetch('data/jsearch_jobs.json');
-                const data = await response.json();
-                
-                allJobs = data.jobs || [];
-                updateStats(data.stats || {});
-                updateLastUpdate(data.metadata?.last_update || new Date().toISOString());
-                
+                const files = ['data/jsearch_jobs.json', 'data/ajo_gemini_jobs.json'];
+                const allData = await Promise.all(files.map(f => fetch(f).then(res => res.json())));
+        
+                const combinedJobs = [];
+                const combinedStats = {
+                    total: 0,
+                    by_job_type: {
+                        faculty: 0,
+                        industry: 0,
+                        nonprofit: 0,
+                        government: 0,
+                        international: 0
+                    }
+                };
+        
+                allData.forEach((data, index) => {
+                    const sourceLabel = files[index].includes('ajo') ? 'AJO' : 'JSearch';
+        
+                    (data.jobs || []).forEach(job => {
+                        job.source_origin = sourceLabel; // 🔖 추적용
+                        combinedJobs.push(job);
+                    });
+        
+                    const stats = data.stats || {};
+                    combinedStats.total += stats.total || 0;
+        
+                    const jobTypes = stats.by_job_type || {};
+                    for (const key in combinedStats.by_job_type) {
+                        combinedStats.by_job_type[key] += jobTypes[key] || 0;
+                    }
+                });
+        
+                allJobs = combinedJobs;
                 filteredJobs = [...allJobs];
+        
+                updateStats(combinedStats);
+        
+                // 최근 업데이트 날짜 중 가장 최신 것 사용
+                const timestamps = allData.map(d => new Date(d.metadata?.last_update || 0));
+                const latest = new Date(Math.max(...timestamps));
+                updateLastUpdate(latest.toISOString());
+        
                 renderJobs();
             } catch (error) {
                 console.error('Error loading jobs:', error);
                 loadDemoData();
             }
         }
+
 
         // Demo data fallback
         function loadDemoData() {
@@ -567,6 +602,7 @@
                             <div class="job-tags">
                                 <span class="tag ${job.job_type}">${job.job_type}</span>
                                 <span class="tag ${job.category}">${job.category}</span>
+                                <span class="tag">${job.source_origin}</span>
                                 ${job.tags ? job.tags.slice(0, 3).map(tag => `<span class="tag">${tag}</span>`).join('') : ''}
                                 ${job.is_remote ? '<span class="tag">Remote</span>' : ''}
                             </div>
