@@ -1,0 +1,400 @@
+{
+  "jobs": [
+    {
+      "title": "AI Ethics Research Scientist",
+      "company": "Anthropic",
+      "location": "San Francisco, CA",
+      "job_type": "industry",
+      "category": "cs",
+      "description": "Research AI safety and alignment with focus on constitutional AI and responsible AI development. Work on developing frameworks for ethical AI systems and ensuring AI technology benefits humanity.",
+      "posting_date": "2025-07-25",
+      "deadline": null,
+      "source_url": "https://www.indeed.com/viewjob?jk=ai_ethics_anthropic",
+      "source_site": "indeed",
+      "tags": [
+        "AI Safety",
+        "Research",
+        "Ethics",
+        "Responsible AI"
+      ],
+      "relevance_score": 95
+    },
+    {
+      "title": "Technology Policy Manager",
+      "company": "Microsoft",
+      "location": "Washington, DC",
+      "job_type": "industry",
+      "category": "policy",
+      "description": "Lead policy initiatives around AI governance and responsible deployment of AI technologies. Engage with policymakers and stakeholders on AI regulation and digital rights.",
+      "posting_date": "2025-07-25",
+      "deadline": null,
+      "source_url": "https://www.indeed.com/viewjob?jk=policy_microsoft",
+      "source_site": "indeed",
+      "tags": [
+        "Policy",
+        "AI Governance",
+        "Government Relations",
+        "Digital Rights"
+      ],
+      "relevance_score": 95
+    },
+    {
+      "title": "AI Governance Research Fellow",
+      "company": "Future of Humanity Institute",
+      "location": "Oxford, UK",
+      "job_type": "nonprofit",
+      "category": "policy",
+      "description": "Research AI governance mechanisms and policy frameworks to ensure beneficial AI development. Focus on international cooperation and regulatory approaches to AI safety.",
+      "posting_date": "2025-07-22",
+      "deadline": "2025-09-08",
+      "source_url": "https://80000hours.org/job-board/ai-governance-fellow",
+      "source_site": "80000hours",
+      "tags": [
+        "AI Governance",
+        "Research",
+        "Policy",
+        "Global Coordination"
+      ],
+      "relevance_score": 95
+    },
+    {
+      "title": "Technology Ethics Program Manager",
+      "company": "Centre for AI Safety",
+      "location": "Remote",
+      "job_type": "nonprofit",
+      "category": "cs",
+      "description": "Manage programs focused on AI safety research and outreach. Coordinate with researchers, policymakers, and industry leaders on AI risk mitigation strategies.",
+      "posting_date": "2025-07-20",
+      "deadline": "2025-08-24",
+      "source_url": "https://80000hours.org/job-board/tech-ethics-manager",
+      "source_site": "80000hours",
+      "tags": [
+        "Program Management",
+        "AI Safety",
+        "Risk Assessment"
+      ],
+      "relevance_score": 95
+    },
+    {
+      "title": "Digital Rights Advocate",
+      "company": "Electronic Frontier Foundation",
+      "location": "San Francisco, CA",
+      "job_type": "nonprofit",
+      "category": "law",
+      "description": "Advocate for digital rights and privacy protections in the age of AI. Work on policy analysis, legal research, and public education on AI and digital rights issues.",
+      "posting_date": "2025-07-23",
+      "deadline": "2025-08-14",
+      "source_url": "https://80000hours.org/job-board/digital-rights-eff",
+      "source_site": "80000hours",
+      "tags": [
+        "Digital Rights",
+        "Privacy",
+        "Legal Advocacy",
+        "Public Policy"
+      ],
+      "relevance_score": 95
+    },
+    {
+      "title": "Assistant Professor of AI Ethics",
+      "company": "MIT Computer Science",
+      "location": "Cambridge, MA",
+      "job_type": "faculty",
+      "category": "cs",
+      "description": "Tenure-track position in artificial intelligence with emphasis on ethical AI development, algorithmic fairness, and social implications of AI systems. Research areas include AI safety, responsible AI design, and interdisciplinary approaches to AI governance.",
+      "posting_date": "2025-07-23",
+      "deadline": "2025-09-23",
+      "source_url": "https://academicjobsonline.org/ajo/jobs/mit_ai_ethics",
+      "source_site": "academic_jobs_online",
+      "tags": [
+        "Faculty",
+        "Tenure Track",
+        "AI Ethics",
+        "Computer Science"
+      ],
+      "relevance_score": 95
+    },
+    {
+      "title": "Professor of Technology Law",
+      "company": "Stanford Law School",
+      "location": "Stanford, CA",
+      "job_type": "faculty",
+      "category": "law",
+      "description": "Senior faculty position focusing on intersection of technology and law, AI regulation, algorithmic accountability, and digital rights. Candidates should have expertise in technology policy and legal frameworks for emerging technologies.",
+      "posting_date": "2025-07-20",
+      "deadline": "2025-10-23",
+      "source_url": "https://academicjobsonline.org/ajo/jobs/stanford_tech_law",
+      "source_site": "academic_jobs_online",
+      "tags": [
+        "Faculty",
+        "Law",
+        "Technology Policy",
+        "Senior Position"
+      ],
+      "relevance_score": 95
+    },
+    {
+      "title": "Postdoctoral Researcher - AI and Society",
+      "company": "UC Berkeley School of Information",
+      "location": "Berkeley, CA",
+      "job_type": "faculty",
+      "category": "ischool",
+      "description": "Postdoctoral research position studying societal impacts of AI systems. Research focus on algorithmic bias, AI transparency, and human-AI interaction. Collaboration with interdisciplinary team on AI ethics and policy.",
+      "posting_date": "2025-07-24",
+      "deadline": "2025-08-24",
+      "source_url": "https://academicjobsonline.org/ajo/jobs/berkeley_postdoc",
+      "source_site": "academic_jobs_online",
+      "tags": [
+        "Postdoc",
+        "iSchool",
+        "AI and Society",
+        "Interdisciplinary"
+      ],
+      "relevance_score": 95
+    },
+    {
+      "title": "AI Policy Specialist",
+      "company": "National Institute of Standards and Technology (NIST)",
+      "location": "Gaithersburg, MD",
+      "job_type": "government",
+      "category": "policy",
+      "description": "Develop AI risk management frameworks and standards for federal agencies. Work on AI governance policies, risk assessment methodologies, and stakeholder engagement on AI regulation.",
+      "posting_date": "2025-07-21",
+      "deadline": "2025-08-19",
+      "source_url": "https://www.usajobs.gov/job/ai-policy-nist",
+      "source_site": "usajobs",
+      "tags": [
+        "Government",
+        "AI Policy",
+        "Risk Management",
+        "Standards"
+      ],
+      "relevance_score": 95
+    },
+    {
+      "title": "Technology Ethics Advisor",
+      "company": "Office of Science and Technology Policy (OSTP)",
+      "location": "Washington, DC",
+      "job_type": "government",
+      "category": "policy",
+      "description": "Advise on ethical implications of emerging technologies including AI, provide policy recommendations on responsible innovation, and coordinate with federal agencies on technology ethics initiatives.",
+      "posting_date": "2025-07-19",
+      "deadline": "2025-08-09",
+      "source_url": "https://www.usajobs.gov/job/tech-ethics-ostp",
+      "source_site": "usajobs",
+      "tags": [
+        "Government",
+        "Ethics",
+        "Policy Advisory",
+        "Federal"
+      ],
+      "relevance_score": 95
+    },
+    {
+      "title": "Digital Rights Legal Counsel",
+      "company": "Federal Trade Commission (FTC)",
+      "location": "Washington, DC",
+      "job_type": "government",
+      "category": "law",
+      "description": "Legal counsel specializing in digital rights, AI regulation, and consumer protection in digital markets. Work on enforcement actions, policy development, and legal analysis of emerging technologies.",
+      "posting_date": "2025-07-22",
+      "deadline": "2025-08-29",
+      "source_url": "https://www.usajobs.gov/job/digital-rights-ftc",
+      "source_site": "usajobs",
+      "tags": [
+        "Government",
+        "Legal",
+        "Digital Rights",
+        "Consumer Protection"
+      ],
+      "relevance_score": 95
+    },
+    {
+      "title": "AI Governance Specialist",
+      "company": "OECD (Organisation for Economic Co-operation and Development)",
+      "location": "Paris, France",
+      "job_type": "international",
+      "category": "policy",
+      "description": "Develop international standards and guidelines for AI governance. Lead cross-country initiatives on AI policy coordination, digital transformation, and responsible AI deployment across OECD member countries.",
+      "posting_date": "2025-07-18",
+      "deadline": "2025-09-03",
+      "source_url": "https://www.oecd.org/careers/ai-governance-specialist",
+      "source_site": "oecd",
+      "tags": [
+        "International",
+        "AI Governance",
+        "Policy Coordination",
+        "Global Standards"
+      ],
+      "relevance_score": 95
+    },
+    {
+      "title": "Digital Rights Program Officer",
+      "company": "United Nations (UN)",
+      "location": "Geneva, Switzerland",
+      "job_type": "international",
+      "category": "law",
+      "description": "Support UN initiatives on digital rights, AI ethics, and technology governance. Work on global frameworks for responsible AI use and digital human rights protection across member states.",
+      "posting_date": "2025-07-20",
+      "deadline": "2025-08-24",
+      "source_url": "https://careers.un.org/lbw/jobdetail.aspx?id=digital-rights",
+      "source_site": "un_careers",
+      "tags": [
+        "UN",
+        "Digital Rights",
+        "International Law",
+        "Human Rights"
+      ],
+      "relevance_score": 95
+    },
+    {
+      "title": "AI Safety Research Scientist",
+      "company": "DeepMind (Alphabet)",
+      "location": "London, UK",
+      "job_type": "industry",
+      "category": "cs",
+      "description": "Conduct fundamental research on AI safety and alignment. Focus on developing safer AI systems, interpretability, and robustness. Collaborate with global research community on AI safety challenges.",
+      "posting_date": "2025-07-22",
+      "deadline": null,
+      "source_url": "https://careers.google.com/jobs/deepmind-ai-safety",
+      "source_site": "deepmind_careers",
+      "tags": [
+        "AI Safety",
+        "Research",
+        "Global Team",
+        "Technical"
+      ],
+      "relevance_score": 95
+    },
+    {
+      "title": "Technology Ethics Researcher",
+      "company": "Future of Humanity Institute",
+      "location": "Oxford, UK",
+      "job_type": "nonprofit",
+      "category": "cs",
+      "description": "Research long-term implications of AI and emerging technologies. Focus on existential risk from AI, global coordination problems, and ethical frameworks for transformative AI development.",
+      "posting_date": "2025-07-17",
+      "deadline": "2025-08-19",
+      "source_url": "https://www.fhi.ox.ac.uk/careers/tech-ethics-researcher",
+      "source_site": "fhi_oxford",
+      "tags": [
+        "Ethics",
+        "Long-term Research",
+        "Existential Risk",
+        "Oxford"
+      ],
+      "relevance_score": 95
+    },
+    {
+      "title": "AI Policy Advisor",
+      "company": "European Commission",
+      "location": "Brussels, Belgium",
+      "job_type": "government",
+      "category": "policy",
+      "description": "Advise on EU AI Act implementation and digital single market policies. Work on European AI strategy, regulatory frameworks, and international cooperation on AI governance.",
+      "posting_date": "2025-07-21",
+      "deadline": "2025-08-29",
+      "source_url": "https://epso.europa.eu/job/ai-policy-advisor",
+      "source_site": "eu_careers",
+      "tags": [
+        "EU",
+        "AI Act",
+        "European Policy",
+        "Regulatory"
+      ],
+      "relevance_score": 95
+    },
+    {
+      "title": "Research Fellow - AI and Global Development",
+      "company": "Cambridge University (Centre for AI Safety)",
+      "location": "Cambridge, UK",
+      "job_type": "faculty",
+      "category": "cs",
+      "description": "Research AI applications for global development challenges. Focus on AI for social good, ethical AI deployment in developing countries, and international AI cooperation frameworks.",
+      "posting_date": "2025-07-23",
+      "deadline": "2025-09-08",
+      "source_url": "https://www.cam.ac.uk/jobs/ai-global-development-fellow",
+      "source_site": "cambridge_careers",
+      "tags": [
+        "Cambridge",
+        "AI for Good",
+        "Global Development",
+        "Research Fellow"
+      ],
+      "relevance_score": 95
+    },
+    {
+      "title": "Technology and Human Rights Specialist",
+      "company": "Amnesty International",
+      "location": "London, UK",
+      "job_type": "nonprofit",
+      "category": "law",
+      "description": "Research and advocacy on technology's impact on human rights. Focus on AI surveillance, algorithmic bias, and digital rights violations. Lead global campaigns on tech accountability.",
+      "posting_date": "2025-07-16",
+      "deadline": "2025-08-12",
+      "source_url": "https://www.amnesty.org/careers/tech-human-rights",
+      "source_site": "amnesty_careers",
+      "tags": [
+        "Human Rights",
+        "Tech Accountability",
+        "Global Advocacy",
+        "NGO"
+      ],
+      "relevance_score": 95
+    },
+    {
+      "title": "Digital Innovation Fellow",
+      "company": "World Economic Forum",
+      "location": "Geneva, Switzerland / Remote",
+      "job_type": "international",
+      "category": "policy",
+      "description": "Lead initiatives on responsible technology adoption and digital transformation. Engage with global leaders on AI governance, digital economy, and future of work implications.",
+      "posting_date": "2025-07-19",
+      "deadline": "2025-08-14",
+      "source_url": "https://www.weforum.org/careers/digital-innovation-fellow",
+      "source_site": "wef_careers",
+      "tags": [
+        "WEF",
+        "Global Leadership",
+        "Digital Economy",
+        "Innovation"
+      ],
+      "relevance_score": 85
+    },
+    {
+      "title": "AI Safety Engineer",
+      "company": "Google DeepMind",
+      "location": "London, UK",
+      "job_type": "industry",
+      "category": "cs",
+      "description": "Work on technical AI safety research including alignment, interpretability, and robustness. Collaborate with researchers to ensure AI systems are safe and beneficial.",
+      "posting_date": "2025-07-24",
+      "deadline": null,
+      "source_url": "https://www.indeed.com/viewjob?jk=safety_deepmind",
+      "source_site": "indeed",
+      "tags": [
+        "AI Safety",
+        "Technical Research",
+        "Alignment"
+      ],
+      "relevance_score": 75
+    }
+  ],
+  "stats": {
+    "total": 20,
+    "faculty": 4,
+    "industry": 4,
+    "nonprofit": 5,
+    "government": 4,
+    "international": 3,
+    "new_today": 2,
+    "by_category": {
+      "law": 5,
+      "policy": 7,
+      "cs": 7,
+      "ischool": 1
+    }
+  },
+  "last_update": "2025-07-25T08:28:36.913275",
+  "total_scraped": 20,
+  "duplicates_removed": 0
+}

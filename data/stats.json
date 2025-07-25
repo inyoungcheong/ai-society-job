@@ -1,0 +1,15 @@
+{
+  "total": 20,
+  "faculty": 4,
+  "industry": 4,
+  "nonprofit": 5,
+  "government": 4,
+  "international": 3,
+  "new_today": 2,
+  "by_category": {
+    "law": 5,
+    "policy": 7,
+    "cs": 7,
+    "ischool": 1
+  }
+}
