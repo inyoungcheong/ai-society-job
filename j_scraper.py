@@ -11,11 +11,16 @@ from datetime import datetime, timedelta
 from typing import List, Dict, Any
 import os
 import re
-import google.generativeai as genai
+
+try:
+    import google.generativeai as genai
+except ImportError:
+    genai = None
 
 class JSearchJobScraper:
     def __init__(self):
         self.api_key = os.getenv('RAPIDAPI_KEY')
+        self.gemini_api_key = os.getenv("GEMINI_API_KEY")
         self.base_url = "https://jsearch.p.rapidapi.com/search"
         self.headers = {
             'X-RapidAPI-Key': self.api_key,
@@ -37,8 +42,11 @@ class JSearchJobScraper:
             'policy', 'governance', 'privacy', 'algorithm', 'transparency'
         ]
 
-        genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-        self.gemini_model = genai.GenerativeModel("gemini-1.5-flash")
+        if genai and self.gemini_api_key:
+            genai.configure(api_key=self.gemini_api_key)
+            self.gemini_model = genai.GenerativeModel("gemini-pro")
+        else:
+            self.gemini_model = None
 
     def search_jobs(self, query: str, country: str = "US", limit: int = 25) -> List[Dict]:
         jobs = []
@@ -229,6 +237,10 @@ class JSearchJobScraper:
         return unique
 
     def gemini_filter(self, jobs: List[Dict]) -> List[Dict]:
+        if not self.gemini_model:
+            print("⚠️ Gemini model not configured")
+            return []
+
         prompt_template = """
 You are an expert in AI policy, ethics, and governance.
 
@@ -267,7 +279,6 @@ Respond with YES or NO.
             json.dump(result, f, ensure_ascii=False, indent=2)
         print(f"💾 Saved {filename} ({len(jobs)} jobs)")
 
-
 def main():
     scraper = JSearchJobScraper()
     raw_jobs = scraper.scrape_all()
@@ -277,6 +288,6 @@ def main():
     scraper.save_results(filtered_jobs, "jsearch_gemini_jobs.json")
     return 0
 
-
 if __name__ == "__main__":
     exit(main())
+
