@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+.job-company {
+            color: #06b6d4;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -241,12 +246,19 @@
             line-height: 1.3;
         }
 
-        .job-company {
-            color: #06b6d4;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
+        .job-title a {
+            color: #111827;
+            text-decoration: none;
+            transition: color 0.2s ease;
+            cursor: pointer;
         }
+
+        .job-title a:hover {
+            color: #06b6d4;
+            text-decoration: underline;
+        }
+
+
 
         .job-meta {
             display: flex;
@@ -545,7 +557,11 @@
                 <div class="job-item">
                     <div class="job-header">
                         <div class="job-info">
-                            <div class="job-title">${job.title}</div>
+                            <div class="job-title">
+                                <a href="${job.source_url}" target="_blank" rel="noopener noreferrer">
+                                    ${job.title}
+                                </a>
+                            </div>
                             <div class="job-company">${job.company}</div>
                             <div class="job-meta">
                                 <span>🌍 ${job.location || 'Location TBD'}</span>
