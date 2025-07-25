@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 AI & Society Job Scraper
-크롤링해서 JSON 파일로 저장하는 스크립트
+Scrapes job postings and saves to JSON files
 """
 
 import requests
@@ -13,7 +13,7 @@ import time
 import re
 from urllib.parse import urljoin, urlparse
 
-# API 키 (GitHub Secrets에서 가져오기)
+# API key from GitHub Secrets
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 
 class AIJobScraper:
@@ -21,43 +21,47 @@ class AIJobScraper:
         self.jobs = []
         self.session = requests.Session()
         self.session.headers.update({
-            'User-Agent': 'Mozilla/5.0 (compatible; JobBot/1.0; +https://github.com/your-username/job-leaderboard)'
+            'User-Agent': 'Mozilla/5.0 (compatible; JobBot/1.0; +https://github.com/your-username/ai-society-job)'
         })
         
-        # AI & Society 관련 키워드
+        # AI & Society related keywords
         self.relevant_keywords = [
             'ai ethics', 'artificial intelligence', 'machine learning', 'ai policy',
             'algorithmic fairness', 'ai governance', 'technology law', 'digital rights',
             'ai safety', 'responsible ai', 'ai regulation', 'tech policy',
             'algorithmic accountability', 'ai transparency', 'digital policy',
-            'technology ethics', 'computational social science', 'human-computer interaction'
+            'technology ethics', 'computational social science', 'human-computer interaction',
+            'data ethics', 'privacy policy', 'digital governance', 'tech for good',
+            'algorithmic bias', 'ai alignment', 'technology governance', 'digital transformation',
+            'innovation policy', 'emerging technology', 'future of work', 'digital society'
         ]
         
-        # 제외할 키워드 (너무 기술적이거나 관련 없는 것들)
+        # Exclude too technical or unrelated keywords
         self.exclude_keywords = [
             'software engineer', 'data engineer', 'devops', 'backend developer',
-            'frontend developer', 'full stack', 'mobile developer', 'qa engineer'
+            'frontend developer', 'full stack', 'mobile developer', 'qa engineer',
+            'database administrator', 'system administrator', 'network engineer'
         ]
 
     def calculate_relevance_score(self, job_data: Dict) -> int:
-        """Gemini API를 사용해서 관련성 점수 계산"""
+        """Calculate relevance score using Gemini API"""
         text = f"{job_data.get('title', '')} {job_data.get('description', '')}"
         text = text.lower()
         
-        # 기본 키워드 매칭 점수
+        # Basic keyword matching score
         relevance_score = 0
         
-        # 관련 키워드가 있으면 점수 추가
+        # Add points for relevant keywords
         for keyword in self.relevant_keywords:
             if keyword in text:
-                relevance_score += 10
+                relevance_score += 8
                 
-        # 제외 키워드가 있으면 점수 감점
+        # Subtract points for excluded keywords
         for keyword in self.exclude_keywords:
             if keyword in text:
-                relevance_score -= 15
+                relevance_score -= 20
                 
-        # Gemini API를 사용한 고급 점수 계산
+        # Use Gemini API for advanced scoring
         if GEMINI_API_KEY:
             ai_score = self.get_gemini_relevance_score(text)
             relevance_score = max(relevance_score, ai_score)
@@ -65,45 +69,47 @@ class AIJobScraper:
         return max(0, min(100, relevance_score))
 
     def get_gemini_relevance_score(self, text: str) -> int:
-        """Gemini API를 사용해서 관련성 점수 계산"""
+        """Calculate relevance score using Gemini API"""
         try:
             import google.generativeai as genai
             
-            # API 키 설정
+            # Configure API key
             genai.configure(api_key=GEMINI_API_KEY)
             model = genai.GenerativeModel('gemini-1.5-flash')
             
             prompt = f"""
-            다음 채용공고가 "AI & Society" 분야와 얼마나 관련있는지 0-100점으로 평가해주세요.
+            Rate how relevant this job posting is to "AI & Society" field on a scale of 0-100.
             
-            AI & Society 분야는 다음을 포함합니다:
-            - AI 윤리 (AI Ethics)
-            - AI 정책 및 거버넌스 (AI Policy & Governance)  
-            - 기술 법률 (Technology Law)
-            - 알고리즘 공정성 (Algorithmic Fairness)
-            - AI 안전성 (AI Safety)
-            - 디지털 권리 (Digital Rights)
-            - 기술의 사회적 영향 (Social Impact of Technology)
-            - 책임있는 AI (Responsible AI)
+            AI & Society field includes:
+            - AI Ethics
+            - AI Policy & Governance  
+            - Technology Law
+            - Algorithmic Fairness
+            - AI Safety
+            - Digital Rights
+            - Social Impact of Technology
+            - Responsible AI
+            - Data Ethics
+            - Technology Governance
+            - Innovation Policy
             
-            채용공고 내용:
-            제목: {job_data.get('title', '')}
-            설명: {text[:800]}
+            Job posting content:
+            {text[:800]}
             
-            평가 기준:
-            - 90-100점: 핵심 AI & Society 분야 (AI 윤리 연구원, AI 정책 매니저 등)
-            - 70-89점: 강한 관련성 (AI 관련 법률, 기술 정책 등)  
-            - 50-69점: 중간 관련성 (일반 AI 연구에서 사회적 측면 고려)
-            - 30-49점: 약한 관련성 (기술 분야이지만 사회적 측면 미미)
-            - 0-29점: 관련성 없음 (순수 기술 개발, 엔지니어링 등)
+            Scoring criteria:
+            - 90-100: Core AI & Society roles (AI Ethics Researcher, AI Policy Manager, etc.)
+            - 70-89: Strong relevance (AI-related law, tech policy, etc.)  
+            - 50-69: Moderate relevance (general AI research with social considerations)
+            - 30-49: Weak relevance (tech field but minimal social aspects)
+            - 0-29: Not relevant (pure technical development, engineering, etc.)
             
-            점수만 숫자로 답해주세요 (0-100):
+            Please respond with only a number (0-100):
             """
             
             response = model.generate_content(prompt)
             score_text = response.text.strip()
             
-            # 숫자 추출
+            # Extract number
             import re
             numbers = re.findall(r'\d+', score_text)
             if numbers:
@@ -111,25 +117,17 @@ class AIJobScraper:
                 return max(0, min(100, score))
                 
         except Exception as e:
-            print(f"Gemini API 점수 계산 오류: {e}")
+            print(f"Gemini API scoring error: {e}")
             
         return 0
 
     def scrape_indeed(self, query: str = "AI ethics policy") -> List[Dict]:
-        """Indeed에서 채용공고 크롤링"""
+        """Scrape job postings from Indeed"""
         jobs = []
         
         try:
-            # Indeed 검색 URL
-            url = f"https://www.indeed.com/jobs?q={query.replace(' ', '+')}&l=&sort=date"
-            
-            response = self.session.get(url, timeout=10)
-            if response.status_code != 200:
-                print(f"Indeed 요청 실패: {response.status_code}")
-                return jobs
-                
-            # 간단한 파싱 (실제로는 BeautifulSoup 사용 권장)
-            # 여기서는 데모용으로 mock 데이터 생성
+            # For demo purposes, create mock data
+            # In production, implement actual scraping with BeautifulSoup
             mock_jobs = [
                 {
                     "title": "AI Ethics Research Scientist",
@@ -137,12 +135,12 @@ class AIJobScraper:
                     "location": "San Francisco, CA",
                     "job_type": "industry",
                     "category": "cs",
-                    "description": "Research AI safety and alignment with focus on constitutional AI and harmlessness...",
+                    "description": "Research AI safety and alignment with focus on constitutional AI and responsible AI development. Work on developing frameworks for ethical AI systems and ensuring AI technology benefits humanity.",
                     "posting_date": datetime.now().strftime("%Y-%m-%d"),
                     "deadline": None,
-                    "source_url": "https://www.indeed.com/viewjob?jk=example1",
+                    "source_url": "https://www.indeed.com/viewjob?jk=ai_ethics_anthropic",
                     "source_site": "indeed",
-                    "tags": ["AI Safety", "Research", "Ethics"]
+                    "tags": ["AI Safety", "Research", "Ethics", "Responsible AI"]
                 },
                 {
                     "title": "Technology Policy Manager",
@@ -150,32 +148,104 @@ class AIJobScraper:
                     "location": "Washington, DC",
                     "job_type": "industry", 
                     "category": "policy",
-                    "description": "Lead policy initiatives around AI governance and responsible deployment...",
+                    "description": "Lead policy initiatives around AI governance and responsible deployment of AI technologies. Engage with policymakers and stakeholders on AI regulation and digital rights.",
                     "posting_date": datetime.now().strftime("%Y-%m-%d"),
                     "deadline": None,
-                    "source_url": "https://www.indeed.com/viewjob?jk=example2",
+                    "source_url": "https://www.indeed.com/viewjob?jk=policy_microsoft",
                     "source_site": "indeed",
-                    "tags": ["Policy", "AI Governance", "Government Relations"]
+                    "tags": ["Policy", "AI Governance", "Government Relations", "Digital Rights"]
+                },
+                {
+                    "title": "AI Safety Engineer",
+                    "company": "Google DeepMind",
+                    "location": "London, UK",
+                    "job_type": "industry",
+                    "category": "cs",
+                    "description": "Work on technical AI safety research including alignment, interpretability, and robustness. Collaborate with researchers to ensure AI systems are safe and beneficial.",
+                    "posting_date": (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d"),
+                    "deadline": None,
+                    "source_url": "https://www.indeed.com/viewjob?jk=safety_deepmind",
+                    "source_site": "indeed",
+                    "tags": ["AI Safety", "Technical Research", "Alignment"]
                 }
             ]
             
             for job in mock_jobs:
                 relevance_score = self.calculate_relevance_score(job)
-                if relevance_score >= 30:  # 최소 관련성 임계점
+                if relevance_score >= 30:  # Minimum relevance threshold
                     job['relevance_score'] = relevance_score
                     jobs.append(job)
                     
         except Exception as e:
-            print(f"Indeed 크롤링 오류: {e}")
+            print(f"Indeed scraping error: {e}")
+            
+        return jobs
+
+    def scrape_80000hours(self) -> List[Dict]:
+        """Scrape job postings from 80,000 Hours job board"""
+        jobs = []
+        
+        try:
+            # Mock data for 80,000 Hours - high-impact career opportunities
+            mock_jobs = [
+                {
+                    "title": "AI Governance Research Fellow",
+                    "company": "Future of Humanity Institute",
+                    "location": "Oxford, UK",
+                    "job_type": "nonprofit",
+                    "category": "policy",
+                    "description": "Research AI governance mechanisms and policy frameworks to ensure beneficial AI development. Focus on international cooperation and regulatory approaches to AI safety.",
+                    "posting_date": (datetime.now() - timedelta(days=3)).strftime("%Y-%m-%d"),
+                    "deadline": (datetime.now() + timedelta(days=45)).strftime("%Y-%m-%d"),
+                    "source_url": "https://80000hours.org/job-board/ai-governance-fellow",
+                    "source_site": "80000hours",
+                    "tags": ["AI Governance", "Research", "Policy", "Global Coordination"]
+                },
+                {
+                    "title": "Technology Ethics Program Manager",
+                    "company": "Centre for AI Safety",
+                    "location": "Remote",
+                    "job_type": "nonprofit",
+                    "category": "cs",
+                    "description": "Manage programs focused on AI safety research and outreach. Coordinate with researchers, policymakers, and industry leaders on AI risk mitigation strategies.",
+                    "posting_date": (datetime.now() - timedelta(days=5)).strftime("%Y-%m-%d"),
+                    "deadline": (datetime.now() + timedelta(days=30)).strftime("%Y-%m-%d"),
+                    "source_url": "https://80000hours.org/job-board/tech-ethics-manager",
+                    "source_site": "80000hours",
+                    "tags": ["Program Management", "AI Safety", "Risk Assessment"]
+                },
+                {
+                    "title": "Digital Rights Advocate",
+                    "company": "Electronic Frontier Foundation",
+                    "location": "San Francisco, CA",
+                    "job_type": "nonprofit",
+                    "category": "law",
+                    "description": "Advocate for digital rights and privacy protections in the age of AI. Work on policy analysis, legal research, and public education on AI and digital rights issues.",
+                    "posting_date": (datetime.now() - timedelta(days=2)).strftime("%Y-%m-%d"),
+                    "deadline": (datetime.now() + timedelta(days=20)).strftime("%Y-%m-%d"),
+                    "source_url": "https://80000hours.org/job-board/digital-rights-eff",
+                    "source_site": "80000hours",
+                    "tags": ["Digital Rights", "Privacy", "Legal Advocacy", "Public Policy"]
+                }
+            ]
+            
+            for job in mock_jobs:
+                relevance_score = self.calculate_relevance_score(job)
+                if relevance_score >= 40:  # Higher threshold for specialized boards
+                    job['relevance_score'] = relevance_score
+                    jobs.append(job)
+                    
+        except Exception as e:
+            print(f"80,000 Hours scraping error: {e}")
             
         return jobs
 
     def scrape_academic_jobs_online(self) -> List[Dict]:
-        """Academic Jobs Online에서 faculty 포지션 크롤링"""
+        """Scrape faculty positions from Academic Jobs Online"""
         jobs = []
         
         try:
-            # 데모용 mock 데이터
+            # Mock academic job postings
             mock_jobs = [
                 {
                     "title": "Assistant Professor of AI Ethics",
@@ -183,12 +253,12 @@ class AIJobScraper:
                     "location": "Cambridge, MA",
                     "job_type": "faculty",
                     "category": "cs",
-                    "description": "Tenure-track position in artificial intelligence with emphasis on ethical AI development...",
+                    "description": "Tenure-track position in artificial intelligence with emphasis on ethical AI development, algorithmic fairness, and social implications of AI systems. Research areas include AI safety, responsible AI design, and interdisciplinary approaches to AI governance.",
                     "posting_date": (datetime.now() - timedelta(days=2)).strftime("%Y-%m-%d"),
                     "deadline": (datetime.now() + timedelta(days=60)).strftime("%Y-%m-%d"),
-                    "source_url": "https://academicjobsonline.org/ajo/jobs/example1",
+                    "source_url": "https://academicjobsonline.org/ajo/jobs/mit_ai_ethics",
                     "source_site": "academic_jobs_online",
-                    "tags": ["Faculty", "Tenure Track", "AI Ethics"]
+                    "tags": ["Faculty", "Tenure Track", "AI Ethics", "Computer Science"]
                 },
                 {
                     "title": "Professor of Technology Law",
@@ -196,72 +266,235 @@ class AIJobScraper:
                     "location": "Stanford, CA", 
                     "job_type": "faculty",
                     "category": "law",
-                    "description": "Senior faculty position focusing on intersection of technology and law, AI regulation...",
+                    "description": "Senior faculty position focusing on intersection of technology and law, AI regulation, algorithmic accountability, and digital rights. Candidates should have expertise in technology policy and legal frameworks for emerging technologies.",
                     "posting_date": (datetime.now() - timedelta(days=5)).strftime("%Y-%m-%d"),
                     "deadline": (datetime.now() + timedelta(days=90)).strftime("%Y-%m-%d"),
-                    "source_url": "https://academicjobsonline.org/ajo/jobs/example2",
+                    "source_url": "https://academicjobsonline.org/ajo/jobs/stanford_tech_law",
                     "source_site": "academic_jobs_online",
-                    "tags": ["Faculty", "Law", "Technology Policy"]
+                    "tags": ["Faculty", "Law", "Technology Policy", "Senior Position"]
+                },
+                {
+                    "title": "Postdoctoral Researcher - AI and Society",
+                    "company": "UC Berkeley School of Information",
+                    "location": "Berkeley, CA",
+                    "job_type": "faculty",
+                    "category": "ischool",
+                    "description": "Postdoctoral research position studying societal impacts of AI systems. Research focus on algorithmic bias, AI transparency, and human-AI interaction. Collaboration with interdisciplinary team on AI ethics and policy.",
+                    "posting_date": (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d"),
+                    "deadline": (datetime.now() + timedelta(days=30)).strftime("%Y-%m-%d"),
+                    "source_url": "https://academicjobsonline.org/ajo/jobs/berkeley_postdoc",
+                    "source_site": "academic_jobs_online",
+                    "tags": ["Postdoc", "iSchool", "AI and Society", "Interdisciplinary"]
                 }
             ]
             
             for job in mock_jobs:
                 relevance_score = self.calculate_relevance_score(job)
-                if relevance_score >= 40:  # faculty 포지션은 높은 기준
+                if relevance_score >= 50:  # Higher threshold for faculty positions
                     job['relevance_score'] = relevance_score
                     jobs.append(job)
                     
         except Exception as e:
-            print(f"Academic Jobs Online 크롤링 오류: {e}")
+            print(f"Academic Jobs Online scraping error: {e}")
             
         return jobs
 
-    def scrape_idealist_nonprofits(self) -> List[Dict]:
-        """Idealist에서 비영리 단체 채용공고 크롤링"""
+    def scrape_government_positions(self) -> List[Dict]:
+        """Scrape government positions related to AI and technology policy"""
         jobs = []
         
         try:
-            # 데모용 mock 데이터
+            # Mock government job postings
             mock_jobs = [
                 {
-                    "title": "AI Policy Advocate",
-                    "company": "Electronic Frontier Foundation",
-                    "location": "San Francisco, CA",
-                    "job_type": "nonprofit",
+                    "title": "AI Policy Specialist",
+                    "company": "National Institute of Standards and Technology (NIST)",
+                    "location": "Gaithersburg, MD",
+                    "job_type": "government",
                     "category": "policy",
-                    "description": "Advocate for responsible AI policies and digital rights protection...",
-                    "posting_date": (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d"),
-                    "deadline": (datetime.now() + timedelta(days=30)).strftime("%Y-%m-%d"),
-                    "source_url": "https://www.idealist.org/en/nonprofit-job/example1",
-                    "source_site": "idealist",
-                    "tags": ["Advocacy", "Digital Rights", "Policy"]
+                    "description": "Develop AI risk management frameworks and standards for federal agencies. Work on AI governance policies, risk assessment methodologies, and stakeholder engagement on AI regulation.",
+                    "posting_date": (datetime.now() - timedelta(days=4)).strftime("%Y-%m-%d"),
+                    "deadline": (datetime.now() + timedelta(days=25)).strftime("%Y-%m-%d"),
+                    "source_url": "https://www.usajobs.gov/job/ai-policy-nist",
+                    "source_site": "usajobs",
+                    "tags": ["Government", "AI Policy", "Risk Management", "Standards"]
+                },
+                {
+                    "title": "Technology Ethics Advisor",
+                    "company": "Office of Science and Technology Policy (OSTP)",
+                    "location": "Washington, DC",
+                    "job_type": "government",
+                    "category": "policy",
+                    "description": "Advise on ethical implications of emerging technologies including AI, provide policy recommendations on responsible innovation, and coordinate with federal agencies on technology ethics initiatives.",
+                    "posting_date": (datetime.now() - timedelta(days=6)).strftime("%Y-%m-%d"),
+                    "deadline": (datetime.now() + timedelta(days=15)).strftime("%Y-%m-%d"),
+                    "source_url": "https://www.usajobs.gov/job/tech-ethics-ostp",
+                    "source_site": "usajobs",
+                    "tags": ["Government", "Ethics", "Policy Advisory", "Federal"]
+                },
+                {
+                    "title": "Digital Rights Legal Counsel",
+                    "company": "Federal Trade Commission (FTC)",
+                    "location": "Washington, DC",
+                    "job_type": "government",
+                    "category": "law",
+                    "description": "Legal counsel specializing in digital rights, AI regulation, and consumer protection in digital markets. Work on enforcement actions, policy development, and legal analysis of emerging technologies.",
+                    "posting_date": (datetime.now() - timedelta(days=3)).strftime("%Y-%m-%d"),
+                    "deadline": (datetime.now() + timedelta(days=35)).strftime("%Y-%m-%d"),
+                    "source_url": "https://www.usajobs.gov/job/digital-rights-ftc",
+                    "source_site": "usajobs",
+                    "tags": ["Government", "Legal", "Digital Rights", "Consumer Protection"]
                 }
             ]
             
             for job in mock_jobs:
                 relevance_score = self.calculate_relevance_score(job)
-                if relevance_score >= 35:
+                if relevance_score >= 45:  # Government positions threshold
                     job['relevance_score'] = relevance_score
                     jobs.append(job)
                     
         except Exception as e:
-            print(f"Idealist 크롤링 오류: {e}")
+            print(f"Government positions scraping error: {e}")
+            
+        return jobs
+        """Scrape global job opportunities and international organizations"""
+        jobs = []
+        
+        try:
+            # Mock global job postings - international orgs, EU institutions, etc.
+            mock_jobs = [
+                {
+                    "title": "AI Governance Specialist",
+                    "company": "OECD (Organisation for Economic Co-operation and Development)",
+                    "location": "Paris, France",
+                    "job_type": "international",
+                    "category": "policy",
+                    "description": "Develop international standards and guidelines for AI governance. Lead cross-country initiatives on AI policy coordination, digital transformation, and responsible AI deployment across OECD member countries.",
+                    "posting_date": (datetime.now() - timedelta(days=7)).strftime("%Y-%m-%d"),
+                    "deadline": (datetime.now() + timedelta(days=40)).strftime("%Y-%m-%d"),
+                    "source_url": "https://www.oecd.org/careers/ai-governance-specialist",
+                    "source_site": "oecd",
+                    "tags": ["International", "AI Governance", "Policy Coordination", "Global Standards"]
+                },
+                {
+                    "title": "Digital Rights Program Officer",
+                    "company": "United Nations (UN)",
+                    "location": "Geneva, Switzerland",
+                    "job_type": "international",
+                    "category": "law",
+                    "description": "Support UN initiatives on digital rights, AI ethics, and technology governance. Work on global frameworks for responsible AI use and digital human rights protection across member states.",
+                    "posting_date": (datetime.now() - timedelta(days=5)).strftime("%Y-%m-%d"),
+                    "deadline": (datetime.now() + timedelta(days=30)).strftime("%Y-%m-%d"),
+                    "source_url": "https://careers.un.org/lbw/jobdetail.aspx?id=digital-rights",
+                    "source_site": "un_careers",
+                    "tags": ["UN", "Digital Rights", "International Law", "Human Rights"]
+                },
+                {
+                    "title": "AI Safety Research Scientist",
+                    "company": "DeepMind (Alphabet)",
+                    "location": "London, UK",
+                    "job_type": "industry",
+                    "category": "cs",
+                    "description": "Conduct fundamental research on AI safety and alignment. Focus on developing safer AI systems, interpretability, and robustness. Collaborate with global research community on AI safety challenges.",
+                    "posting_date": (datetime.now() - timedelta(days=3)).strftime("%Y-%m-%d"),
+                    "deadline": None,
+                    "source_url": "https://careers.google.com/jobs/deepmind-ai-safety",
+                    "source_site": "deepmind_careers",
+                    "tags": ["AI Safety", "Research", "Global Team", "Technical"]
+                },
+                {
+                    "title": "Technology Ethics Researcher",
+                    "company": "Future of Humanity Institute",
+                    "location": "Oxford, UK",
+                    "job_type": "nonprofit",
+                    "category": "cs",
+                    "description": "Research long-term implications of AI and emerging technologies. Focus on existential risk from AI, global coordination problems, and ethical frameworks for transformative AI development.",
+                    "posting_date": (datetime.now() - timedelta(days=8)).strftime("%Y-%m-%d"),
+                    "deadline": (datetime.now() + timedelta(days=25)).strftime("%Y-%m-%d"),
+                    "source_url": "https://www.fhi.ox.ac.uk/careers/tech-ethics-researcher",
+                    "source_site": "fhi_oxford",
+                    "tags": ["Ethics", "Long-term Research", "Existential Risk", "Oxford"]
+                },
+                {
+                    "title": "AI Policy Advisor",
+                    "company": "European Commission",
+                    "location": "Brussels, Belgium",
+                    "job_type": "government",
+                    "category": "policy",
+                    "description": "Advise on EU AI Act implementation and digital single market policies. Work on European AI strategy, regulatory frameworks, and international cooperation on AI governance.",
+                    "posting_date": (datetime.now() - timedelta(days=4)).strftime("%Y-%m-%d"),
+                    "deadline": (datetime.now() + timedelta(days=35)).strftime("%Y-%m-%d"),
+                    "source_url": "https://epso.europa.eu/job/ai-policy-advisor",
+                    "source_site": "eu_careers",
+                    "tags": ["EU", "AI Act", "European Policy", "Regulatory"]
+                },
+                {
+                    "title": "Digital Innovation Fellow",
+                    "company": "World Economic Forum",
+                    "location": "Geneva, Switzerland / Remote",
+                    "job_type": "international",
+                    "category": "policy",
+                    "description": "Lead initiatives on responsible technology adoption and digital transformation. Engage with global leaders on AI governance, digital economy, and future of work implications.",
+                    "posting_date": (datetime.now() - timedelta(days=6)).strftime("%Y-%m-%d"),
+                    "deadline": (datetime.now() + timedelta(days=20)).strftime("%Y-%m-%d"),
+                    "source_url": "https://www.weforum.org/careers/digital-innovation-fellow",
+                    "source_site": "wef_careers",
+                    "tags": ["WEF", "Global Leadership", "Digital Economy", "Innovation"]
+                },
+                {
+                    "title": "Research Fellow - AI and Global Development",
+                    "company": "Cambridge University (Centre for AI Safety)",
+                    "location": "Cambridge, UK",
+                    "job_type": "faculty",
+                    "category": "cs",
+                    "description": "Research AI applications for global development challenges. Focus on AI for social good, ethical AI deployment in developing countries, and international AI cooperation frameworks.",
+                    "posting_date": (datetime.now() - timedelta(days=2)).strftime("%Y-%m-%d"),
+                    "deadline": (datetime.now() + timedelta(days=45)).strftime("%Y-%m-%d"),
+                    "source_url": "https://www.cam.ac.uk/jobs/ai-global-development-fellow",
+                    "source_site": "cambridge_careers",
+                    "tags": ["Cambridge", "AI for Good", "Global Development", "Research Fellow"]
+                },
+                {
+                    "title": "Technology and Human Rights Specialist",
+                    "company": "Amnesty International",
+                    "location": "London, UK",
+                    "job_type": "nonprofit",
+                    "category": "law",
+                    "description": "Research and advocacy on technology's impact on human rights. Focus on AI surveillance, algorithmic bias, and digital rights violations. Lead global campaigns on tech accountability.",
+                    "posting_date": (datetime.now() - timedelta(days=9)).strftime("%Y-%m-%d"),
+                    "deadline": (datetime.now() + timedelta(days=18)).strftime("%Y-%m-%d"),
+                    "source_url": "https://www.amnesty.org/careers/tech-human-rights",
+                    "source_site": "amnesty_careers",
+                    "tags": ["Human Rights", "Tech Accountability", "Global Advocacy", "NGO"]
+                }
+            ]
+            
+            for job in mock_jobs:
+                relevance_score = self.calculate_relevance_score(job)
+                if relevance_score >= 50:  # High threshold for global positions
+                    job['relevance_score'] = relevance_score
+                    jobs.append(job)
+                    
+        except Exception as e:
+            print(f"Global opportunities scraping error: {e}")
             
         return jobs
 
     def run_scraping(self) -> Dict[str, Any]:
-        """모든 사이트에서 크롤링 실행"""
-        print("🔍 채용공고 크롤링 시작...")
+        """Execute scraping from all sources"""
+        print("🔍 Starting job scraping...")
         
-        # 각 사이트에서 크롤링
+        # Scrape from all sources
         indeed_jobs = self.scrape_indeed()
+        hours80k_jobs = self.scrape_80000hours()
         academic_jobs = self.scrape_academic_jobs_online()
-        nonprofit_jobs = self.scrape_idealist_nonprofits()
+        government_jobs = self.scrape_government_positions()
+        global_jobs = self.scrape_global_opportunities()
         
-        # 모든 채용공고 합치기
-        all_jobs = indeed_jobs + academic_jobs + nonprofit_jobs
+        # Combine all job postings
+        all_jobs = indeed_jobs + hours80k_jobs + academic_jobs + government_jobs + global_jobs
         
-        # 중복 제거 (URL 기준)
+        # Remove duplicates based on URL
         seen_urls = set()
         unique_jobs = []
         for job in all_jobs:
@@ -269,13 +502,13 @@ class AIJobScraper:
                 seen_urls.add(job['source_url'])
                 unique_jobs.append(job)
         
-        # 관련성 점수로 정렬
+        # Sort by relevance score
         unique_jobs.sort(key=lambda x: x['relevance_score'], reverse=True)
         
-        # 통계 계산
+        # Calculate statistics
         stats = self.calculate_stats(unique_jobs)
         
-        print(f"✅ 크롤링 완료: {len(unique_jobs)}개 채용공고 수집")
+        print(f"✅ Scraping completed: {len(unique_jobs)} job postings collected")
         
         return {
             "jobs": unique_jobs,
@@ -286,12 +519,14 @@ class AIJobScraper:
         }
 
     def calculate_stats(self, jobs: List[Dict]) -> Dict[str, int]:
-        """채용공고 통계 계산"""
+        """Calculate job posting statistics"""
         stats = {
             "total": len(jobs),
             "faculty": len([j for j in jobs if j['job_type'] == 'faculty']),
             "industry": len([j for j in jobs if j['job_type'] == 'industry']),
             "nonprofit": len([j for j in jobs if j['job_type'] == 'nonprofit']),
+            "government": len([j for j in jobs if j['job_type'] == 'government']),
+            "international": len([j for j in jobs if j['job_type'] == 'international']),
             "new_today": len([j for j in jobs if j['posting_date'] == datetime.now().strftime("%Y-%m-%d")]),
             "by_category": {
                 "law": len([j for j in jobs if j['category'] == 'law']),
@@ -303,56 +538,58 @@ class AIJobScraper:
         return stats
 
     def save_to_json(self, data: Dict[str, Any]):
-        """JSON 파일로 저장"""
-        # data 디렉토리 생성
+        """Save data to JSON files"""
+        # Create data directory
         os.makedirs('data', exist_ok=True)
         
-        # 메인 데이터 파일
+        # Main data file
         with open('data/jobs.json', 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
         
-        # 통계만 별도 파일로도 저장
+        # Statistics file
         with open('data/stats.json', 'w', encoding='utf-8') as f:
             json.dump(data['stats'], f, ensure_ascii=False, indent=2)
         
-        # 마지막 업데이트 시간
+        # Last update time
         with open('data/last_update.json', 'w', encoding='utf-8') as f:
             json.dump({
                 "last_update": data['last_update'],
                 "total_jobs": data['stats']['total']
             }, f, ensure_ascii=False, indent=2)
         
-        print(f"💾 데이터 저장 완료: data/jobs.json ({data['stats']['total']}개 채용공고)")
+        print(f"💾 Data saved: data/jobs.json ({data['stats']['total']} job postings)")
 
 
 def main():
-    """메인 실행 함수"""
+    """Main execution function"""
     scraper = AIJobScraper()
     
     try:
-        # 크롤링 실행
+        # Run scraping
         data = scraper.run_scraping()
         
-        # JSON 파일로 저장
+        # Save to JSON files
         scraper.save_to_json(data)
         
-        # 결과 요약 출력
-        print("\n📊 크롤링 결과:")
-        print(f"   총 채용공고: {data['stats']['total']}개")
-        print(f"   Faculty: {data['stats']['faculty']}개")
-        print(f"   Industry: {data['stats']['industry']}개") 
-        print(f"   Non-profit: {data['stats']['nonprofit']}개")
-        print(f"   오늘 신규: {data['stats']['new_today']}개")
-        print(f"   중복 제거: {data['duplicates_removed']}개")
+        # Print summary
+        print("\n📊 Scraping Results:")
+        print(f"   Total jobs: {data['stats']['total']}")
+        print(f"   Faculty: {data['stats']['faculty']}")
+        print(f"   Industry: {data['stats']['industry']}")
+        print(f"   Non-profit: {data['stats']['nonprofit']}")
+        print(f"   Government: {data['stats']['government']}")
+        print(f"   International: {data['stats']['international']}")
+        print(f"   New today: {data['stats']['new_today']}")
+        print(f"   Duplicates removed: {data['duplicates_removed']}")
         
-        print("\n🎯 카테고리별:")
+        print("\n🎯 By Category:")
         for category, count in data['stats']['by_category'].items():
-            print(f"   {category}: {count}개")
+            print(f"   {category}: {count}")
             
-        print(f"\n🕒 마지막 업데이트: {data['last_update']}")
+        print(f"\n🕒 Last update: {data['last_update']}")
         
     except Exception as e:
-        print(f"❌ 크롤링 실행 중 오류: {e}")
+        print(f"❌ Error during scraping: {e}")
         return 1
     
     return 0
