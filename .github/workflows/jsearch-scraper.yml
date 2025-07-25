@@ -2,15 +2,14 @@ name: JSearch Job Scraper
 
 on:
   schedule:
-    # Run twice a week: Monday and Thursday at 9:00 UTC (18:00 KST)
+    # 매주 월, 목 09:00 UTC (KST 18:00)
     - cron: '0 9 * * 1,4'
-  workflow_dispatch:  # Allow manual trigger
+  workflow_dispatch:
   push:
     paths:
       - 'j_scraper.py'
       - '.github/workflows/jsearch-scraper.yml'
 
-# Add explicit permissions
 permissions:
   contents: write
   actions: read
@@ -24,24 +23,24 @@ jobs:
       uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        
+
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
-        
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install requests
-        
+        pip install requests python-dotenv
+
     - name: Run JSearch scraper
       env:
         RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
       run: |
         python j_scraper.py
-        
-    - name: Check results
+
+    - name: Check result file
       run: |
         if [ -f "data/jsearch_jobs.json" ]; then
           echo "✅ jsearch_jobs.json created successfully"
@@ -52,22 +51,31 @@ jobs:
           echo "❌ jsearch_jobs.json not found!"
           exit 1
         fi
-        
-    - name: Sync with remote and push results
+
+    - name: Commit and safely push results
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-    
-        # 최신 브랜치 fetch
+
         git fetch origin main
-    
-        # 변경사항 스테이징 및 커밋
+
         git add data/
         if ! git diff --staged --quiet; then
-          git commit -m "Update job data: $(date '+%Y-%m-%d %H:%M UTC')"
-        fi
-    
-        # main 브랜치와 fast-forward 병합
-        git pull origin main --no-rebase --no-edit || true
-    
-        git push origin main
+          git commit -m "🔄 Update job data: $(date -u '+%Y-%m-%d %H:%M UTC')"
+          
+          # Fast-forward only to avoid conflicts
+          git pull origin main --ff-only || echo "⚠️ Fast-forward failed. Skipping push."
+
+          # Push only if pull succeeded
+          LOCAL=$(git rev-parse @)
+          REMOTE=$(git rev-parse @{u})
+          BASE=$(git merge-base @ @{u})
+          
+          if [ "$LOCAL" = "$REMOTE" ] || [ "$BASE" = "$REMOTE" ]; then
+            git push origin main
+            echo "✅ Changes pushed to main"
+          else
+            echo "🚫 Skipping push: local is behind or diverged"
+          fi
+        else
+          echo "ℹ️ No changes to commit"
