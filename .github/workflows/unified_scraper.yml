@@ -116,108 +116,110 @@ jobs:
       run: |
         echo "🔄 Integrating all job data sources..."
         
-        python3 -c "
-import json
-import os
-from datetime import datetime
+        cat > integrate_data.py << 'EOF'
+        import json
+        import os
+        from datetime import datetime
 
-def load_json_safely(filepath):
-    try:
-        with open(filepath, 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except:
-        return {'jobs': [], 'metadata': {}}
+        def load_json_safely(filepath):
+            try:
+                with open(filepath, 'r', encoding='utf-8') as f:
+                    return json.load(f)
+            except:
+                return {'jobs': [], 'metadata': {}}
 
-# Load all data sources
-academic_data = load_json_safely('data/ajo_gemini_jobs.json')
-jsearch_data = load_json_safely('data/jsearch_gemini_jobs.json') 
-linkedin_data = load_json_safely('data/linkedin_gemini_jobs.json')
+        # Load all data sources
+        academic_data = load_json_safely('data/ajo_gemini_jobs.json')
+        jsearch_data = load_json_safely('data/jsearch_gemini_jobs.json') 
+        linkedin_data = load_json_safely('data/linkedin_gemini_jobs.json')
 
-# Combine all jobs
-all_jobs = []
-all_jobs.extend(academic_data.get('jobs', []))
-all_jobs.extend(jsearch_data.get('jobs', []))
-all_jobs.extend(linkedin_data.get('jobs', []))
+        # Combine all jobs
+        all_jobs = []
+        all_jobs.extend(academic_data.get('jobs', []))
+        all_jobs.extend(jsearch_data.get('jobs', []))
+        all_jobs.extend(linkedin_data.get('jobs', []))
 
-# Remove duplicates based on URL and title+company
-seen = set()
-unique_jobs = []
+        # Remove duplicates based on URL and title+company
+        seen = set()
+        unique_jobs = []
 
-for job in all_jobs:
-    # Create unique identifier
-    url = job.get('source_url', '')
-    title_company = f\"{job.get('title', '')}-{job.get('company', '')}\"
-    identifier = url if url else title_company
-    
-    if identifier not in seen:
-        seen.add(identifier)
-        unique_jobs.append(job)
+        for job in all_jobs:
+            # Create unique identifier
+            url = job.get('source_url', '')
+            title_company = f"{job.get('title', '')}-{job.get('company', '')}"
+            identifier = url if url else title_company
+            
+            if identifier not in seen:
+                seen.add(identifier)
+                unique_jobs.append(job)
 
-# Sort by relevance score
-unique_jobs.sort(key=lambda x: x.get('relevance_score', 0), reverse=True)
+        # Sort by relevance score
+        unique_jobs.sort(key=lambda x: x.get('relevance_score', 0), reverse=True)
 
-# Calculate combined statistics
-stats = {
-    'total_jobs': len(unique_jobs),
-    'academic_jobs': len(academic_data.get('jobs', [])),
-    'jsearch_jobs': len(jsearch_data.get('jobs', [])), 
-    'linkedin_jobs': len(linkedin_data.get('jobs', [])),
-    'duplicates_removed': len(all_jobs) - len(unique_jobs),
-    'high_relevance': len([j for j in unique_jobs if j.get('relevance_score', 0) >= 80]),
-    'gemini_analyzed': len([j for j in unique_jobs if j.get('gemini_analyzed', False)]),
-    'remote_jobs': len([j for j in unique_jobs if j.get('is_remote', False)]),
-    'by_job_type': {},
-    'by_category': {},
-    'sources': {
-        'academic': len(academic_data.get('jobs', [])),
-        'jsearch': len(jsearch_data.get('jobs', [])),
-        'linkedin': len(linkedin_data.get('jobs', []))
-    }
-}
+        # Calculate combined statistics
+        stats = {
+            'total_jobs': len(unique_jobs),
+            'academic_jobs': len(academic_data.get('jobs', [])),
+            'jsearch_jobs': len(jsearch_data.get('jobs', [])), 
+            'linkedin_jobs': len(linkedin_data.get('jobs', [])),
+            'duplicates_removed': len(all_jobs) - len(unique_jobs),
+            'high_relevance': len([j for j in unique_jobs if j.get('relevance_score', 0) >= 80]),
+            'gemini_analyzed': len([j for j in unique_jobs if j.get('gemini_analyzed', False)]),
+            'remote_jobs': len([j for j in unique_jobs if j.get('is_remote', False)]),
+            'by_job_type': {},
+            'by_category': {},
+            'sources': {
+                'academic': len(academic_data.get('jobs', [])),
+                'jsearch': len(jsearch_data.get('jobs', [])),
+                'linkedin': len(linkedin_data.get('jobs', []))
+            }
+        }
 
-# Count by job type and category
-for job in unique_jobs:
-    job_type = job.get('job_type', 'unknown')
-    stats['by_job_type'][job_type] = stats['by_job_type'].get(job_type, 0) + 1
-    
-    category = job.get('category', 'unknown')  
-    stats['by_category'][category] = stats['by_category'].get(category, 0) + 1
+        # Count by job type and category
+        for job in unique_jobs:
+            job_type = job.get('job_type', 'unknown')
+            stats['by_job_type'][job_type] = stats['by_job_type'].get(job_type, 0) + 1
+            
+            category = job.get('category', 'unknown')  
+            stats['by_category'][category] = stats['by_category'].get(category, 0) + 1
 
-# Create master data file
-master_data = {
-    'jobs': unique_jobs,
-    'stats': stats,
-    'metadata': {
-        'last_update': datetime.now().isoformat(),
-        'total_unique_jobs': len(unique_jobs),
-        'sources_integrated': ['academic', 'jsearch', 'linkedin'],
-        'integration_date': datetime.now().isoformat()
-    }
-}
+        # Create master data file
+        master_data = {
+            'jobs': unique_jobs,
+            'stats': stats,
+            'metadata': {
+                'last_update': datetime.now().isoformat(),
+                'total_unique_jobs': len(unique_jobs),
+                'sources_integrated': ['academic', 'jsearch', 'linkedin'],
+                'integration_date': datetime.now().isoformat()
+            }
+        }
 
-# Save master file
-with open('data/all_jobs_integrated.json', 'w', encoding='utf-8') as f:
-    json.dump(master_data, f, ensure_ascii=False, indent=2)
+        # Save master file
+        with open('data/all_jobs_integrated.json', 'w', encoding='utf-8') as f:
+            json.dump(master_data, f, ensure_ascii=False, indent=2)
 
-# Create summary
-print(f'🎯 Data Integration Complete!')
-print(f'   Academic jobs: {stats[\"academic_jobs\"]}')
-print(f'   JSearch jobs: {stats[\"jsearch_jobs\"]}')
-print(f'   LinkedIn jobs: {stats[\"linkedin_jobs\"]}')
-print(f'   Total unique: {stats[\"total_jobs\"]}')
-print(f'   Duplicates removed: {stats[\"duplicates_removed\"]}')
-print(f'   High relevance (80+): {stats[\"high_relevance\"]}')
-print(f'   Gemini analyzed: {stats[\"gemini_analyzed\"]}')
-print(f'   Remote jobs: {stats[\"remote_jobs\"]}')
+        # Create summary
+        print(f'🎯 Data Integration Complete!')
+        print(f'   Academic jobs: {stats["academic_jobs"]}')
+        print(f'   JSearch jobs: {stats["jsearch_jobs"]}')
+        print(f'   LinkedIn jobs: {stats["linkedin_jobs"]}')
+        print(f'   Total unique: {stats["total_jobs"]}')
+        print(f'   Duplicates removed: {stats["duplicates_removed"]}')
+        print(f'   High relevance (80+): {stats["high_relevance"]}')
+        print(f'   Gemini analyzed: {stats["gemini_analyzed"]}')
+        print(f'   Remote jobs: {stats["remote_jobs"]}')
 
-print(f'\\n📂 By Job Type:')
-for job_type, count in stats['by_job_type'].items():
-    print(f'   {job_type}: {count}')
-    
-print(f'\\n📂 By Category:')
-for category, count in stats['by_category'].items():
-    print(f'   {category}: {count}')
-"
+        print(f'\n📂 By Job Type:')
+        for job_type, count in stats['by_job_type'].items():
+            print(f'   {job_type}: {count}')
+            
+        print(f'\n📂 By Category:')
+        for category, count in stats['by_category'].items():
+            print(f'   {category}: {count}')
+        EOF
+        
+        python integrate_data.py
         
     # Phase 5: Update legacy files for HTML compatibility
     - name: Update legacy data files
@@ -237,31 +239,33 @@ for category, count in stats['by_category'].items():
         fi
         
         # Create stats summary
-        python3 -c "
-import json
-from datetime import datetime
+        cat > create_summary.py << 'EOF'
+        import json
+        from datetime import datetime
 
-try:
-    with open('data/all_jobs_integrated.json', 'r') as f:
-        data = json.load(f)
-    
-    summary = {
-        'last_update': data['metadata']['last_update'],
-        'total_jobs': data['stats']['total_jobs'],
-        'sources': data['stats']['sources'],
-        'quality': {
-            'high_relevance': data['stats']['high_relevance'],
-            'gemini_analyzed': data['stats']['gemini_analyzed']
-        }
-    }
-    
-    with open('data/scraping_summary.json', 'w') as f:
-        json.dump(summary, f, indent=2)
+        try:
+            with open('data/all_jobs_integrated.json', 'r') as f:
+                data = json.load(f)
+            
+            summary = {
+                'last_update': data['metadata']['last_update'],
+                'total_jobs': data['stats']['total_jobs'],
+                'sources': data['stats']['sources'],
+                'quality': {
+                    'high_relevance': data['stats']['high_relevance'],
+                    'gemini_analyzed': data['stats']['gemini_analyzed']
+                }
+            }
+            
+            with open('data/scraping_summary.json', 'w') as f:
+                json.dump(summary, f, indent=2)
+                
+            print('✅ Created scraping summary')
+        except Exception as e:
+            print(f'⚠️ Could not create summary: {e}')
+        EOF
         
-    print('✅ Created scraping summary')
-except Exception as e:
-    print(f'⚠️ Could not create summary: {e}')
-"
+        python create_summary.py
         
     # Phase 6: Git commit and push
     - name: Commit and push all results
@@ -291,20 +295,21 @@ except Exception as e:
           
           # Add job counts if available
           if [ -f "data/all_jobs_integrated.json" ]; then
-            python3 -c "
-import json
-try:
-    with open('data/all_jobs_integrated.json', 'r') as f:
-        data = json.load(f)
-    stats = data['stats']
-    print(f'📈 Results: {stats[\"total_jobs\"]} unique jobs')
-    print(f'   Academic: {stats[\"sources\"][\"academic\"]}')
-    print(f'   JSearch: {stats[\"sources\"][\"jsearch\"]}')  
-    print(f'   LinkedIn: {stats[\"sources\"][\"linkedin\"]}')
-    print(f'   High relevance: {stats[\"high_relevance\"]}')
-except:
-    print('📈 Job data updated')
-" >> commit_msg.tmp
+            cat > get_stats.py << 'EOF'
+            import json
+            try:
+                with open('data/all_jobs_integrated.json', 'r') as f:
+                    data = json.load(f)
+                stats = data['stats']
+                print(f'📈 Results: {stats["total_jobs"]} unique jobs')
+                print(f'   Academic: {stats["sources"]["academic"]}')
+                print(f'   JSearch: {stats["sources"]["jsearch"]}')  
+                print(f'   LinkedIn: {stats["sources"]["linkedin"]}')
+                print(f'   High relevance: {stats["high_relevance"]}')
+            except:
+                print('📈 Job data updated')
+            EOF
+            python get_stats.py >> commit_msg.tmp
           fi
           
           git commit -F commit_msg.tmp
@@ -329,7 +334,7 @@ except:
     - name: Final summary and cleanup
       run: |
         echo "🎉 AI & Society Job Scraping Workflow Complete!"
-        echo "=" * 60
+        echo "============================================================"
         
         # List all generated files
         echo "📁 Generated data files:"
@@ -349,4 +354,4 @@ except:
         echo "🌐 Data available at: https://github.com/${{ github.repository }}/tree/main/data"
         
         # Cleanup temporary files
-        rm -f commit_msg.tmp linkedin_scraper.js linkedin_gemini_analyzer.py 2>/dev/null || true
+        rm -f commit_msg.tmp linkedin_scraper.js linkedin_gemini_analyzer.py integrate_data.py create_summary.py get_stats.py 2>/dev/null || true
