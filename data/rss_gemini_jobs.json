@@ -1,0 +1,203 @@
+{
+  "jobs": [
+    {
+      "title": "Lead Technical Product Owner – Data & AI @ Maersk",
+      "company": "Unknown Company",
+      "location": "Business, Re",
+      "job_type": "industry",
+      "category": "policy",
+      "description": "DescriptionMaersk is achieving an unprecedented transformation in the growth of our business, rethinking the way we engage with customers and partners, and how the world’s trade flows across our global network. You will play a vital part in our success, helping ensure that our customers, partners and internal users are provided with the right tools and a seamless experience utilizing a wide variety of technologies across the business. The ideal candidate will have successfully built and managed ...",
+      "full_description": "DescriptionMaersk is achieving an unprecedented transformation in the growth of our business, rethinking the way we engage with customers and partners, and how the world’s trade flows across our global network. You will play a vital part in our success, helping ensure that our customers, partners and internal users are provided with the right tools and a seamless experience utilizing a wide variety of technologies across the business. The ideal candidate will have successfully built and managed products and/or platforms in the data & AI space. You are able to synthesize a variety of technologies and capabilities and translate them into products and capabilities that solve specific pain-points. You have good knowledge of the data & AI lifecycle capabilities and advocate of seamless user experience. You are analytical and data driven, and are laser focused on measuring and improving the success of products you own. You have a bias for action, being familiar with methods and approaches needed to get things done in a collaborative, transforming environment. In addition, you respond effectively to complex and ambiguous problems and situations. Role SummaryThe Technical Product Owner plays a pivotal role in shaping the next-generation modern Data & AI platform, driving the Maersk’s transition from a centralized to a federated data ecosystem. You will partner closely with customers, business stakeholders, engineering, multi-platform teams, governance & security teams to deliver stable, scalable, and high-impact platform capabilities that empower data-driven innovation and accelerate AI adoption across the enterprise.In addition to participating in shaping up the platform strategy, road mapping and backlog grooming sessions, you will form relationships with our customer base and stakeholders to ensure their feedback is being integrated into product roadmaps and feature work, while balancing these requirements with the internal needs of the team. With all of Maersk’s engineers using our products…",
+      "posting_date": "2025-07-26",
+      "deadline": null,
+      "source_url": "https://aijobs.net/J1454615/",
+      "source_site": "rss_aijobs",
+      "tags": [
+        "AI",
+        "Policy",
+        "Aijobs"
+      ],
+      "relevance_score": 76,
+      "salary_info": "",
+      "is_remote": false,
+      "rss_source": "https://aijobs.net/feed/",
+      "gemini_analyzed": true,
+      "gemini_approved": true
+    },
+    {
+      "title": "Manager, Lead Research Scientist, LLM Agents (Foundational Research) @ Thomson Reuters",
+      "company": "Unknown Company",
+      "location": "Manager, Le",
+      "job_type": "faculty",
+      "category": "technical",
+      "description": "Are you a curious and open-minded individual with an interest in conducting state-of-theart foundational machine learning research? Thomson Reuters Labs is seeking Research Scientists with a passion for building complex agent-based AI systems in a data-rich, complex academic environment driven by real-world problems.Foundational Research is the dedicated core Machine Learning research division of Thomson Reuters. We are focused on research and development, with a particular focus on advanced alg...",
+      "full_description": "Are you a curious and open-minded individual with an interest in conducting state-of-theart foundational machine learning research? Thomson Reuters Labs is seeking Research Scientists with a passion for building complex agent-based AI systems in a data-rich, complex academic environment driven by real-world problems.Foundational Research is the dedicated core Machine Learning research division of Thomson Reuters. We are focused on research and development, with a particular focus on advanced algorithms and training techniques for Large Language Models (LLMs). We are building a strong foundation of research capabilities across different areas and are looking for managers who can inspire and guide their teams, are willing to roll up their sleeves and participate in designing, coding, conducting experiments, and translating findings into concrete deliverables. Our focus areas are:LLM Training (Continued Pretraining, Instruction Tuning, Reinforcement Learning Alignment, Distributed Training, Efficient ML techniques)Post-training techniques for planning, reasoning & complex workflows (e.g., Reasoning Models, LLMs + Knowledge Graphs, Test time compute, CoT pipelines, Tool use & API calling, etc.)Data-centric Machine Learning (Synthetic Data, Curriculum Learning, Learned datamixtures, etc.)Evaluation (Benchmarks, Human-in-the-loop, red teaming/Adversarial Testing, Hallucination detection, ...)We work collaboratively both with TR Labs (TR’s applied research division), academic partners at world-leading research institutions and subject matter experts with decades of experience. We experiment, prototype, test, and deliver ideas in the pursuit of smarter and more valuable models trained on an unprecedented wealth of data and powered by stateof-the-art technical infrastructure. Through our unique institutional experience, we have access to an unprecedented number of subject matter experts involved in data collection, testing and evaluation of trained models.As a Research Scientist Manager, you will play a key part in leading a diverse global team of experts. We hire world-leading specialists in ML/NLP/GenAI, as well as Engineering, to drive the company’s leading internal AI model development. You will have the…",
+      "posting_date": "2025-07-26",
+      "deadline": null,
+      "source_url": "https://aijobs.net/J1454562/",
+      "source_site": "rss_aijobs",
+      "tags": [
+        "AI",
+        "Machine Learning",
+        "Research",
+        "Aijobs"
+      ],
+      "relevance_score": 66,
+      "salary_info": "",
+      "is_remote": true,
+      "rss_source": "https://aijobs.net/feed/",
+      "gemini_analyzed": true,
+      "gemini_approved": true
+    },
+    {
+      "title": "Manager, Lead Research Scientist, Training Data (Foundational Research) @ Thomson Reuters",
+      "company": "Unknown Company",
+      "location": "Manager, Le",
+      "job_type": "faculty",
+      "category": "technical",
+      "description": "Are you a curious and open-minded individual with an interest in conducting state-of-theart foundational machine learning research? Thomson Reuters Labs is seeking Research Scientists with a passion for building complex AI systems in a data-rich, complex academic environment driven by real-world problems.Foundational Research is the dedicated core Machine Learning research division of Thomson Reuters. We are focused on research and development, with a particular focus on advanced algorithms and ...",
+      "full_description": "Are you a curious and open-minded individual with an interest in conducting state-of-theart foundational machine learning research? Thomson Reuters Labs is seeking Research Scientists with a passion for building complex AI systems in a data-rich, complex academic environment driven by real-world problems.Foundational Research is the dedicated core Machine Learning research division of Thomson Reuters. We are focused on research and development, with a particular focus on advanced algorithms and training techniques for Large Language Models (LLMs). We are building a strong foundation of research capabilities across different areas and are looking for managers who can inspire and guide their teams, are willing to roll up their sleeves and participate in designing, coding, conducting experiments, and translating findings into concrete deliverables. Our focus areas are:LLM Training (Continued Pretraining, Instruction Tuning, Reinforcement Learning Alignment, Distributed Training, Efficient ML techniques)Data-centric Machine Learning (Synthetic Data, Curriculum Learning, Learned datamixtures, etc.)Post-training techniques for planning, reasoning & complex workflows (e.g., Reasoning Models, LLMs + Knowledge Graphs, Test time compute, CoT pipelines, Tool use & API calling, etc.)Evaluation (Benchmarks, Human-in-the-loop, red teaming/Adversarial Testing, Hallucination detection, ...)We work collaboratively both with TR Labs (TR’s applied research division), academic partners at world-leading research institutions and subject matter experts with decades of experience. We experiment, prototype, test, and deliver ideas in the pursuit of smarter and more valuable models trained on an unprecedented wealth of data and powered by stateof-the-art technical infrastructure. Through our unique institutional experience, we have access to an unprecedented number of subject matter experts involved in data collection, testing and evaluation of trained models.As a Research Scientist Manager, you will play a key part in leading a diverse global team of experts. We hire world-leading specialists in ML/NLP/GenAI, as well as Engineering, to drive the company’s leading internal AI model development. You will have the opportunity…",
+      "posting_date": "2025-07-26",
+      "deadline": null,
+      "source_url": "https://aijobs.net/J1454560/",
+      "source_site": "rss_aijobs",
+      "tags": [
+        "AI",
+        "Machine Learning",
+        "Research",
+        "Aijobs"
+      ],
+      "relevance_score": 76,
+      "salary_info": "",
+      "is_remote": true,
+      "rss_source": "https://aijobs.net/feed/",
+      "gemini_analyzed": true,
+      "gemini_approved": true
+    },
+    {
+      "title": "Research Scientist, LLM Agents (Foundational Research) @ Thomson Reuters",
+      "company": "Unknown Company",
+      "location": "Scientist, Ll",
+      "job_type": "faculty",
+      "category": "technical",
+      "description": "Are you a curious and open-minded individual with an interest in conducting state-of-theart foundational machine learning research? Thomson Reuters Labs is seeking Research Scientists with a passion for building complex agent-based AI systems in a data-rich, complex academic environment driven by real-world problems.Foundational Research is the dedicated core Machine Learning research division of Thomson Reuters. We are focused on research and development, with a particular focus on advanced alg...",
+      "full_description": "Are you a curious and open-minded individual with an interest in conducting state-of-theart foundational machine learning research? Thomson Reuters Labs is seeking Research Scientists with a passion for building complex agent-based AI systems in a data-rich, complex academic environment driven by real-world problems.Foundational Research is the dedicated core Machine Learning research division of Thomson Reuters. We are focused on research and development, with a particular focus on advanced algorithms and training techniques for Large Language Models (LLMs). We are building a strong foundation of research capabilities across different areas and are looking for scientists who participate in designing, coding, conducting experiments, translating findings into concrete deliverables and engaging with the academic community. Our focus areas are:LLM Training (Continued Pretraining, Instruction Tuning, Reinforcement Learning Alignment, Distributed Training, Efficient ML techniques)Post-training techniques for planning, reasoning & complex workflows (e.g., Reasoning Models, LLMs + Knowledge Graphs, Test time compute, CoT pipelines, Tool use & API calling, etc.)Data-centric Machine Learning (Synthetic Data, Curriculum Learning, Learned datamixtures, etc.)Evaluation (Benchmarks, Human-in-the-loop, red teaming/Adversarial Testing, Hallucination detection, ...)We work collaboratively both with TR Labs (TR’s applied research division), academic partners at world-leading research institutions and subject matter experts with decades of experience. We experiment, prototype, test, and deliver ideas in the pursuit of smarter and more valuable models trained on an unprecedented wealth of data and powered by stateof-the-art technical infrastructure. Through our unique institutional experience, we have access to an unprecedented number of subject matter experts involved in data collection, testing and evaluation of trained models.As a Research Scientist, you will play a key part in a diverse global team of experts. We hire world-leading specialists in ML/NLP/GenAI, as well as Engineering, to drive the company’s leading internal AI model development. You will have the opportunity to publish your research findings as well as contribute to…",
+      "posting_date": "2025-07-26",
+      "deadline": null,
+      "source_url": "https://aijobs.net/J1454559/",
+      "source_site": "rss_aijobs",
+      "tags": [
+        "AI",
+        "Machine Learning",
+        "Research",
+        "Aijobs"
+      ],
+      "relevance_score": 66,
+      "salary_info": "",
+      "is_remote": true,
+      "rss_source": "https://aijobs.net/feed/",
+      "gemini_analyzed": true,
+      "gemini_approved": true
+    },
+    {
+      "title": "Systems Engineer (Embodied AI) @ The Singapore Public Service",
+      "company": "Unknown Company",
+      "location": "Intelligence, Ap",
+      "job_type": "government",
+      "category": "policy",
+      "description": "[What the role is]GovTech is the lead agency driving Singapore’s Smart Nation initiatives and public sector digital transformation. As the Centre of Excellence for Infocomm Technology and Smart Systems (ICT & SS), GovTech develops the Singapore Government’s capabilities in Data Science & Artificial Intelligence, Application Development, Smart City Technology, Digital Infrastructure, and Cybersecurity. At GovTech, we offer you a purposeful career to make lives better where we empower our people t...",
+      "full_description": "[What the role is]GovTech is the lead agency driving Singapore’s Smart Nation initiatives and public sector digital transformation. As the Centre of Excellence for Infocomm Technology and Smart Systems (ICT & SS), GovTech develops the Singapore Government’s capabilities in Data Science & Artificial Intelligence, Application Development, Smart City Technology, Digital Infrastructure, and Cybersecurity. At GovTech, we offer you a purposeful career to make lives better where we empower our people to master their craft through robust learning and development opportunities all year round. Play a part in Singapore’s vision to build a Smart Nation and embark on your meaningful journey to build tech for public good. Join us to advance our mission and shape your future with us today! Learn more about GovTech at tech.gov.sg.[What you will be working on]We are seeking a highly independent Systems Engineer (Embodied AI) to lead the development of intelligent robotic systems within a dynamic, small robotics team. This role focusses on designing and deploying AI-driven robots capable of seamless interaction with built environments (e.g., lifts, turnstiles, doors) and navigating both dynamic and static obstacles in indoor as well as sheltered outdoor environments. The candidate will operate with minimal supervision, leveraging simulation platforms such as NVIDIA Isaac Sim or MuJoCo to drive innovation in embodied AI. The ideal candidate is a self-driven problem-solver with deep expertise in reinforcement learning, computer vision, sensor fusion, and sim-to-real deployment for resource-constrained devices.Key Responsibilities:Develop Advanced Embodied AI Systems: Design and implement AI models integrating perception, reasoning, and action to enable robots to interact with building infrastructure and navigate complex environments. Apply Reinforcement Learning: Use reinforcement learning to train robots for autonomous navigation, obstacle avoidance, and robust interaction in unpredictable real-world scenarios. Implement Multi-Modal Perception: Develop algorithms to fuse data from cameras, LiDAR, ultrasonic sensors, and tactile sensors for robust…",
+      "posting_date": "2025-07-26",
+      "deadline": null,
+      "source_url": "https://aijobs.net/J1454536/",
+      "source_site": "rss_aijobs",
+      "tags": [
+        "AI",
+        "Aijobs"
+      ],
+      "relevance_score": 76,
+      "salary_info": "",
+      "is_remote": false,
+      "rss_source": "https://aijobs.net/feed/",
+      "gemini_analyzed": true,
+      "gemini_approved": true
+    },
+    {
+      "title": "Data Engineer Solution Architect @ DXC Technology",
+      "company": "Unknown Company",
+      "location": "Value, In",
+      "job_type": "industry",
+      "category": "policy",
+      "description": "Job Description:DXC Technology is looking for Data Engineer Solution Architect to join Analytics OfferingDXC Analytics is focused on providing customers innovative solutions and high added value, in the following areas: Analytics Solutions and Services, Big Data Platforms, Information Governance, Business Intelligence & Data Management, Artificial Intelligence and IoT Analytics.ResponsibilitiesDesign Data Engineering solutions by collaborating with clients to understand their business requiremen...",
+      "full_description": "Job Description:DXC Technology is looking for Data Engineer Solution Architect to join Analytics OfferingDXC Analytics is focused on providing customers innovative solutions and high added value, in the following areas: Analytics Solutions and Services, Big Data Platforms, Information Governance, Business Intelligence & Data Management, Artificial Intelligence and IoT Analytics.ResponsibilitiesDesign Data Engineering solutions by collaborating with clients to understand their business requirements and challenges. Leading the development and implementation of Data Engineering solutions, including machine learning models, natural language processing, and computer vision applications. Work closely with our sales team to support presales activities, including creating technical proposals, presenting solutions to clients and providing guidance on implementation strategiesNice To HaveKnowledge or experience in financial services projects and consulting firmsRequirementsAt least 5 years of experience in designing and developing Data Engineering solutions. Good knowledge on Data Ingestion, Data Storage, Data Analysis and visualization and Cloud Services. Strong communication and presentation skills, with the ability to effectively convey complex technical concepts to non-technical stakeholdersLocation: Milan (MI) or Rome (RM) with remote work possibility#LI-HybridAt DXC Technology, we believe strong connections and community are key to our success. Our work model prioritizes in-person collaboration while offering flexibility to support wellbeing, productivity, individual work styles, and life circumstances. We’re committed to fostering an inclusive environment where everyone can thrive.Recruitment fraud is a scheme in which fictitious job opportunities are offered to job seekers typically through online services, such as false websites, or through unsolicited emails claiming to be from the company. These emails may request recipients to provide personal information or to make payments as part of their illegitimate recruiting process. DXC does not make offers of employment via social media networks and DXC never asks for any money or payments from applicants at any point in the recruitment process, nor ask a job seeker to…",
+      "posting_date": "2025-07-26",
+      "deadline": null,
+      "source_url": "https://aijobs.net/J1454513/",
+      "source_site": "rss_aijobs",
+      "tags": [
+        "AI",
+        "Policy",
+        "Machine Learning",
+        "Aijobs"
+      ],
+      "relevance_score": 74,
+      "salary_info": "",
+      "is_remote": true,
+      "rss_source": "https://aijobs.net/feed/",
+      "gemini_analyzed": true,
+      "gemini_approved": true
+    },
+    {
+      "title": "AI & Analytics Senior Director - Finance Data Office @ The Cigna Group",
+      "company": "Unknown Company",
+      "location": "Solutions, Fo",
+      "job_type": "government",
+      "category": "legal",
+      "description": "AI and Analytics Senior Director – Finance Data Office AI and Analytics Lead will be responsible for driving our AI and Analytics strategy for finance organization and the execution of related multi-year initiatives that drive measurable business outcomes. This role will spearhead the development of cutting-edge AI strategies and solutions, focusing on innovation, governance, and operational excellence. This role will be instrumental in building this new function including recruiting, and develo...",
+      "full_description": "AI and Analytics Senior Director – Finance Data Office AI and Analytics Lead will be responsible for driving our AI and Analytics strategy for finance organization and the execution of related multi-year initiatives that drive measurable business outcomes. This role will spearhead the development of cutting-edge AI strategies and solutions, focusing on innovation, governance, and operational excellence. This role will be instrumental in building this new function including recruiting, and developing top talent, creating robust governance frameworks, and delivering innovative AI/ML solutions to transform finance operations. The role will also oversee the reporting and analytics strategy for Finance focusing on rationalizing tools, reports and outcomes to be more effective and efficient.Key ResponsibilitiesInnovation Research and develop advanced AI and ML tools, particularly in areas such as NLP, generative AI, and predictive analytics, to solve finance business challenges.Oversee the end-to-end lifecycle of AI/ML initiatives, from ideation to production deployment.Identify, prioritize, and execute AI use cases that deliver measurable value.Drive the vision and roadmap for AI initiatives, fostering a culture of innovation across the organization in alignment with enterprise goals Develop and execute analytics and reporting strategy that is targeted to rationalize existing reporting (BI) tools, reports and framework with the intention to simplify, eliminate redundancies and deliver effective resultsCollaborate with key business functions to translate data into actionable insights and performance KPIs.Governance & ComplianceEstablish robust governance frameworks to ensure ethical and compliant use of AI technologies.Ensure adherence to Compliance/regulatory requirements and industry standards across all AI initiatives.Manage risks associated with AI adoption, balancing innovation with operational safeguards.Strategic LeadershipCollaborate with senior leadership and stakeholders to embed AI solutions into the core finance processes.Act as a subject matter expert, advocating for AI adoption across the Finance organization.Build and lead a multidisciplinary team of data scientists, ML engineers, and researchers.Foster a high-performance culture, providing mentorship…",
+      "posting_date": "2025-07-26",
+      "deadline": null,
+      "source_url": "https://aijobs.net/J1454480/",
+      "source_site": "rss_aijobs",
+      "tags": [
+        "Machine Learning",
+        "Research",
+        "Policy",
+        "AI",
+        "Aijobs"
+      ],
+      "relevance_score": 76,
+      "salary_info": "",
+      "is_remote": false,
+      "rss_source": "https://aijobs.net/feed/",
+      "gemini_analyzed": true,
+      "gemini_approved": true
+    }
+  ],
+  "metadata": {
+    "total_jobs": 7,
+    "last_update": "2025-07-25T22:15:32.923849",
+    "source": "rss_aggregator",
+    "gemini_available": true
+  },
+  "stats": {
+    "total": 7,
+    "by_job_type": {
+      "industry": 2,
+      "faculty": 3,
+      "government": 2
+    },
+    "by_category": {
+      "policy": 3,
+      "technical": 3,
+      "legal": 1
+    },
+    "by_source": {
+      "rss_aijobs": 7
+    },
+    "gemini_analyzed": 7,
+    "gemini_approved": 7,
+    "remote_jobs": 4,
+    "with_salary": 0
+  }
+}
