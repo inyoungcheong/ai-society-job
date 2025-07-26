@@ -502,31 +502,6 @@
                 if (allJobsFromSources.length === 0) {
                     console.log('🔄 Loading from individual data sources...');
                     
-%                    // Load from JSearch data
-%                    try {
-%                        const jsearchResponse = await fetch('data/jsearch_gemini_jobs.json');
-%                        const jsearchData = await jsearchResponse.json();
-%                        if (jsearchData.jobs) {
-%                            allJobsFromSources = allJobsFromSources.concat(jsearchData.jobs);
-%                           console.log(`Loaded ${jsearchData.jobs.length} jobs from JSearch`);
-%                        }
-%                    } catch (error) {
-%                        console.log('JSearch data not available');
-%                    }
-
-
-                    
-%                    // Also try the legacy filename
-%                    try {
-%                        const jsearchLegacyResponse = await fetch('data/jsearch_jobs.json');
-%                        const jsearchLegacyData = await jsearchLegacyResponse.json();
-%                        if (jsearchLegacyData.jobs) {
-%                            allJobsFromSources = allJobsFromSources.concat(jsearchLegacyData.jobs);
-%                            console.log(`Loaded ${jsearchLegacyData.jobs.length} jobs from JSearch (legacy)`);
-%                        }
-%                    } catch (error) {
-%                        console.log('JSearch legacy data not available');
-%                    }
                     
                     // Load from general scraper data
                     try {
