@@ -272,33 +272,8 @@ jobs:
         fi
         
         # Create stats summary
-        cat > create_summary.py << 'EOF'
-import json
-from datetime import datetime
-try:
-    with open('data/all_jobs_integrated.json', 'r') as f:
-        data = json.load(f)
-    
-    summary = {
-        'last_update': data['metadata']['last_update'],
-        'total_jobs': data['stats']['total_jobs'],
-        'sources': data['stats']['sources'],
-        'quality': {
-            'high_relevance': data['stats']['high_relevance'],
-            'gemini_analyzed': data['stats']['gemini_analyzed']
-        },
-        'sources_note': 'RSS feeds replaced JSearch due to quota limits'
-    }
-    
-    with open('data/scraping_summary.json', 'w') as f:
-        json.dump(summary, f, indent=2)
-        
-    print('✅ Created scraping summary')
-except Exception as e:
-    print(f'⚠️ Could not create summary: {e}')
-EOF
-        
-        python create_summary.py
+        echo '{"last_update": "placeholder", "sources_note": "RSS feeds replaced JSearch due to quota limits"}' > data/scraping_summary.json
+        echo "✅ Created basic scraping summary"
         
     # Phase 6: Git commit and push
     - name: Commit and push all results
