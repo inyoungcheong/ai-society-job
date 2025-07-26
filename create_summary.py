@@ -1,10 +1,9 @@
 import json
 from datetime import datetime
-
 try:
     with open('data/all_jobs_integrated.json', 'r') as f:
         data = json.load(f)
-    
+
     summary = {
         'last_update': data['metadata']['last_update'],
         'total_jobs': data['stats']['total_jobs'],
@@ -12,9 +11,10 @@ try:
         'quality': {
             'high_relevance': data['stats']['high_relevance'],
             'gemini_analyzed': data['stats']['gemini_analyzed']
-        }
+        },
+        'sources_note': 'RSS feeds replaced JSearch due to quota limits'
     }
-    
+
     with open('data/scraping_summary.json', 'w') as f:
         json.dump(summary, f, indent=2)
         

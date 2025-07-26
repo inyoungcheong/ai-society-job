@@ -1,13 +1,15 @@
 {
-  "last_update": "2025-07-26T03:47:04.775220",
+  "last_update": "2025-07-26T04:17:47.029163",
   "total_jobs": 24,
   "sources": {
     "academic": 24,
     "jsearch": 0,
+    "rss": 0,
     "linkedin": 0
   },
   "quality": {
     "high_relevance": 1,
     "gemini_analyzed": 0
-  }
+  },
+  "sources_note": "RSS feeds replaced JSearch due to quota limits"
 }
