@@ -8,7 +8,7 @@ on:
   push:
     paths:
       - 'ac_scraper.py'
-      - 'j_scraper.py' 
+      - 'rss_scraper.py' 
       - 'li_scraper.py'
       - '.github/workflows/unified-scraper.yml'
 
@@ -126,7 +126,7 @@ jobs:
         else
           echo "⚠️ No LinkedIn jobs data generated"
         fi
-
+        
     # Phase 4: Data Integration and Summary
     - name: Integrate and analyze all data
       run: |
@@ -136,31 +136,31 @@ jobs:
         import json
         import os
         from datetime import datetime
-    
+
         def load_json_safely(filepath):
             try:
                 with open(filepath, 'r', encoding='utf-8') as f:
                     return json.load(f)
             except:
                 return {'jobs': [], 'metadata': {}}
-    
+
         # Load all data sources
         academic_data = load_json_safely('data/ajo_gemini_jobs.json')
         # jsearch_data = load_json_safely('data/jsearch_gemini_jobs.json')  # Quota exceeded
         rss_data = load_json_safely('data/rss_gemini_jobs.json')  # New RSS source
         linkedin_data = load_json_safely('data/linkedin_gemini_jobs.json')
-    
+
         # Combine all jobs
         all_jobs = []
         all_jobs.extend(academic_data.get('jobs', []))
         # all_jobs.extend(jsearch_data.get('jobs', []))  # Skip JSearch due to quota
         all_jobs.extend(rss_data.get('jobs', []))  # Add RSS jobs
         all_jobs.extend(linkedin_data.get('jobs', []))
-    
+
         # Remove duplicates based on URL and title+company
         seen = set()
         unique_jobs = []
-    
+
         for job in all_jobs:
             # Create unique identifier
             url = job.get('source_url', '')
@@ -170,10 +170,10 @@ jobs:
             if identifier not in seen:
                 seen.add(identifier)
                 unique_jobs.append(job)
-    
+
         # Sort by relevance score
         unique_jobs.sort(key=lambda x: x.get('relevance_score', 0), reverse=True)
-    
+
         # Calculate combined statistics
         stats = {
             'total_jobs': len(unique_jobs),
@@ -194,7 +194,7 @@ jobs:
                 'linkedin': len(linkedin_data.get('jobs', []))
             }
         }
-    
+
         # Count by job type and category
         for job in unique_jobs:
             job_type = job.get('job_type', 'unknown')
@@ -202,7 +202,7 @@ jobs:
             
             category = job.get('category', 'unknown')  
             stats['by_category'][category] = stats['by_category'].get(category, 0) + 1
-    
+
         # Create master data file
         master_data = {
             'jobs': unique_jobs,
@@ -215,11 +215,11 @@ jobs:
                 'note': 'JSearch temporarily disabled due to quota limits'
             }
         }
-    
+
         # Save master file
         with open('data/all_jobs_integrated.json', 'w', encoding='utf-8') as f:
             json.dump(master_data, f, ensure_ascii=False, indent=2)
-    
+
         # Create summary
         print(f'🎯 Data Integration Complete!')
         print(f'   Academic jobs: {stats["academic_jobs"]}')
@@ -231,7 +231,7 @@ jobs:
         print(f'   High relevance (80+): {stats["high_relevance"]}')
         print(f'   Gemini analyzed: {stats["gemini_analyzed"]}')
         print(f'   Remote jobs: {stats["remote_jobs"]}')
-    
+
         print(f'\n📂 By Job Type:')
         for job_type, count in stats['by_job_type'].items():
             print(f'   {job_type}: {count}')
@@ -272,8 +272,33 @@ jobs:
         fi
         
         # Create stats summary
-        echo '{"last_update": "placeholder", "sources_note": "RSS feeds replaced JSearch due to quota limits"}' > data/scraping_summary.json
-        echo "✅ Created basic scraping summary"
+        cat > create_summary.py << 'EOF'
+        import json
+        from datetime import datetime
+        try:
+            with open('data/all_jobs_integrated.json', 'r') as f:
+                data = json.load(f)
+        
+            summary = {
+                'last_update': data['metadata']['last_update'],
+                'total_jobs': data['stats']['total_jobs'],
+                'sources': data['stats']['sources'],
+                'quality': {
+                    'high_relevance': data['stats']['high_relevance'],
+                    'gemini_analyzed': data['stats']['gemini_analyzed']
+                },
+                'sources_note': 'RSS feeds replaced JSearch due to quota limits'
+            }
+        
+            with open('data/scraping_summary.json', 'w') as f:
+                json.dump(summary, f, indent=2)
+                
+            print('✅ Created scraping summary')
+        except Exception as e:
+            print(f'⚠️ Could not create summary: {e}')
+        EOF
+        
+        python create_summary.py
         
     # Phase 6: Git commit and push
     - name: Commit and push all results
@@ -290,7 +315,7 @@ jobs:
         # Pull latest changes to avoid conflicts
         git pull origin main --rebase || echo "No remote changes to pull"
         
-        # Pop stash if we stashed changes
+        # Pop stash if I stashed changes
         if git stash list | grep -q "stash@{0}"; then
           git stash pop || echo "Could not pop stash"
         fi
@@ -372,4 +397,4 @@ jobs:
         echo "🌐 Data available at: https://github.com/${{ github.repository }}/tree/main/data"
         
         # Cleanup temporary files
-        rm -f commit_msg.tmp linkedin_scraper.js linkedin_gemini_analyzer.py integrate_data.py create_summary.py 2>/dev/null || true
+        rm -f commit_msg.tmp linkedin_scraper.js
