@@ -273,30 +273,30 @@ jobs:
         
         # Create stats summary
         cat > create_summary.py << 'EOF'
-        import json
-        from datetime import datetime
-        try:
-            with open('data/all_jobs_integrated.json', 'r') as f:
-                data = json.load(f)
-            
-            summary = {
-                'last_update': data['metadata']['last_update'],
-                'total_jobs': data['stats']['total_jobs'],
-                'sources': data['stats']['sources'],
-                'quality': {
-                    'high_relevance': data['stats']['high_relevance'],
-                    'gemini_analyzed': data['stats']['gemini_analyzed']
-                },
-                'sources_note': 'RSS feeds replaced JSearch due to quota limits'
-            }
-            
-            with open('data/scraping_summary.json', 'w') as f:
-                json.dump(summary, f, indent=2)
-                
-            print('✅ Created scraping summary')
-        except Exception as e:
-            print(f'⚠️ Could not create summary: {e}')
-        EOF
+import json
+from datetime import datetime
+try:
+    with open('data/all_jobs_integrated.json', 'r') as f:
+        data = json.load(f)
+    
+    summary = {
+        'last_update': data['metadata']['last_update'],
+        'total_jobs': data['stats']['total_jobs'],
+        'sources': data['stats']['sources'],
+        'quality': {
+            'high_relevance': data['stats']['high_relevance'],
+            'gemini_analyzed': data['stats']['gemini_analyzed']
+        },
+        'sources_note': 'RSS feeds replaced JSearch due to quota limits'
+    }
+    
+    with open('data/scraping_summary.json', 'w') as f:
+        json.dump(summary, f, indent=2)
+        
+    print('✅ Created scraping summary')
+except Exception as e:
+    print(f'⚠️ Could not create summary: {e}')
+EOF
         
         python create_summary.py
         
@@ -378,27 +378,16 @@ jobs:
           du -h data/* 2>/dev/null || echo "No data files found"
         fi
         
-        # Show data source summary
+        # Show data source summary with simple shell commands
         if [ -f "data/all_jobs_integrated.json" ]; then
           echo ""
           echo "📋 Data Sources Summary:"
-          python3 -c "
-import json
-try:
-    with open('data/all_jobs_integrated.json', 'r') as f:
-        data = json.load(f)
-    sources = data['stats']['sources']
-    print(f'   Academic: {sources.get(\"academic\", 0)} jobs')
-    print(f'   RSS: {sources.get(\"rss\", 0)} jobs (NEW)')
-    print(f'   LinkedIn: {sources.get(\"linkedin\", 0)} jobs')
-    print(f'   JSearch: {sources.get(\"jsearch\", 0)} jobs (quota exceeded)')
-    print(f'   Total unique: {data[\"stats\"][\"total_jobs\"]} jobs')
-except:
-    print('   Could not read integration data')
-EOF
-        python3 show_stats.py
-        rm show_stats.py
-      fi
+          echo "   Academic: $(grep -o '"academic":[0-9]*' data/all_jobs_integrated.json | cut -d':' -f2 || echo 0) jobs"
+          echo "   RSS: $(grep -o '"rss":[0-9]*' data/all_jobs_integrated.json | cut -d':' -f2 || echo 0) jobs (NEW)"
+          echo "   LinkedIn: $(grep -o '"linkedin":[0-9]*' data/all_jobs_integrated.json | cut -d':' -f2 || echo 0) jobs"
+          echo "   JSearch: 0 jobs (quota exceeded)"
+          echo "   Total unique: $(grep -o '"total_jobs":[0-9]*' data/all_jobs_integrated.json | cut -d':' -f2 || echo 0) jobs"
+        fi
         
         # Final status
         echo ""
@@ -408,4 +397,4 @@ EOF
         echo "🌐 Data available at: https://github.com/${{ github.repository }}/tree/main/data"
         
         # Cleanup temporary files
-        rm -f commit_msg.tmp linkedin_scraper.js linkedin_gemini_analyzer.py integrate_data.py create_summary.py rss_scraper.py 2>/dev/null || true
+        rm -f commit_msg.tmp linkedin_scraper.js linkedin_gemini_analyzer.py integrate_data.py create_summary.py 2>/dev/null || true
