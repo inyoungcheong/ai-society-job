@@ -502,29 +502,31 @@
                 if (allJobsFromSources.length === 0) {
                     console.log('🔄 Loading from individual data sources...');
                     
-                    // Load from JSearch data
-                    try {
-                        const jsearchResponse = await fetch('data/jsearch_gemini_jobs.json');
-                        const jsearchData = await jsearchResponse.json();
-                        if (jsearchData.jobs) {
-                            allJobsFromSources = allJobsFromSources.concat(jsearchData.jobs);
-                            console.log(`Loaded ${jsearchData.jobs.length} jobs from JSearch`);
-                        }
-                    } catch (error) {
-                        console.log('JSearch data not available');
-                    }
+%                    // Load from JSearch data
+%                    try {
+%                        const jsearchResponse = await fetch('data/jsearch_gemini_jobs.json');
+%                        const jsearchData = await jsearchResponse.json();
+%                        if (jsearchData.jobs) {
+%                            allJobsFromSources = allJobsFromSources.concat(jsearchData.jobs);
+%                           console.log(`Loaded ${jsearchData.jobs.length} jobs from JSearch`);
+%                        }
+%                    } catch (error) {
+%                        console.log('JSearch data not available');
+%                    }
+
+
                     
-                    // Also try the legacy filename
-                    try {
-                        const jsearchLegacyResponse = await fetch('data/jsearch_jobs.json');
-                        const jsearchLegacyData = await jsearchLegacyResponse.json();
-                        if (jsearchLegacyData.jobs) {
-                            allJobsFromSources = allJobsFromSources.concat(jsearchLegacyData.jobs);
-                            console.log(`Loaded ${jsearchLegacyData.jobs.length} jobs from JSearch (legacy)`);
-                        }
-                    } catch (error) {
-                        console.log('JSearch legacy data not available');
-                    }
+%                    // Also try the legacy filename
+%                    try {
+%                        const jsearchLegacyResponse = await fetch('data/jsearch_jobs.json');
+%                        const jsearchLegacyData = await jsearchLegacyResponse.json();
+%                        if (jsearchLegacyData.jobs) {
+%                            allJobsFromSources = allJobsFromSources.concat(jsearchLegacyData.jobs);
+%                            console.log(`Loaded ${jsearchLegacyData.jobs.length} jobs from JSearch (legacy)`);
+%                        }
+%                    } catch (error) {
+%                        console.log('JSearch legacy data not available');
+%                    }
                     
                     // Load from general scraper data
                     try {
@@ -548,6 +550,18 @@
                         }
                     } catch (error) {
                         console.log('LinkedIn data not available');
+                    }
+
+                    // Load from RSS data
+                    try {
+                        const rssResponse = await fetch('data/rss_gemini_jobs.json');
+                        const rssData = await rssResponse.json();
+                        if (rssData.jobs) {
+                            allJobsFromSources = allJobsFromSources.concat(rssData.jobs);
+                            console.log(`Loaded ${rssData.jobs.length} jobs from RSS`);
+                        }
+                    } catch (error) {
+                        console.log('RSS data not available');
                     }
                     
                     // Load from Academic/Gemini data
