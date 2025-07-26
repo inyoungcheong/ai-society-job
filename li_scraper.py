@@ -515,8 +515,8 @@ scrapeLinkedInJobsWithGemini().catch(console.error);
         return node_script
 
     def create_gemini_analyzer(self) -> str:
-        """Create Python script for Gemini analysis of LinkedIn data"""
-        analyzer_script = f'''#!/usr/bin/env python3
+        """Create Python script for Gemini analysis"""
+        analyzer_script = '''
 """
 Gemini AI Analyzer for LinkedIn Job Data
 """
@@ -680,20 +680,13 @@ if __name__ == "__main__":
         print("   💾 Output: data/linkedin_gemini_jobs.json")
         print("   🎯 Ready for index.html integration!")
 
-def main():
-    scraper = LinkedInGeminiScraper()
-    
-    print("🚀 LinkedIn + Gemini Job Scraper for AI & Society")
-    print("=" * 60)
-    print(f"📋 Queries: {len(scraper.queries)}")
-    print(f"🌍 Locations: {len(scraper.locations)}")
-    print(f"🔍 Search combinations: {len(scraper.create_search_combinations())}")
-    print(f"🤖 Gemini API: {'Available' if scraper.gemini_api_key else 'Not configured'}")
-    
-    scraper.setup_complete_linkedin_scraper()
-
-if __name__ == "__main__":
-    main() 
+    def create_search_combinations(self):
+        """Create search combinations"""
+        combinations = []
+        
+        priority_queries = [
+            "AI ethics", "responsible AI", "AI governance", 
+            "algorithmic fairness", "ai policy", "data ethics",
             "digital rights", "AI regulation"
         ]
         
@@ -748,6 +741,27 @@ if __name__ == "__main__":
             })
         
         return combinations
+
+def main():
+    """Main execution function"""
+    scraper = LinkedInJobScraper()
+    
+    print("🚀 LinkedIn + Gemini Job Scraper for AI & Society")
+    print("=" * 60)
+    print(f"📋 Queries: {len(scraper.queries)}")
+    print(f"🌍 Locations: {len(scraper.locations)}")
+    print(f"🔍 Search combinations: {len(scraper.create_search_combinations())}")
+    print(f"🤖 Gemini API: {'Available' if scraper.gemini_api_key else 'Not configured'}")
+    
+    try:
+        scraper.setup_complete_linkedin_scraper()
+        return 0
+    except Exception as e:
+        print(f"❌ Fatal error: {e}")
+        return 1
+
+if __name__ == "__main__":
+    exit(main())
 
     def generate_node_script(self) -> str:
         """Generate Node.js script for LinkedIn API calls"""
