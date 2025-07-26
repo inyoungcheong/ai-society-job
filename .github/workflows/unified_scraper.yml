@@ -73,21 +73,37 @@ jobs:
         fi
         
     # Phase 2: JSearch API (Limited to 25 calls)  
-    - name: Run JSearch + Gemini Scraper
+#    - name: Run JSearch + Gemini Scraper
+#      env:
+#        RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
+#        GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+#      run: |
+#        echo "🔍 Starting JSearch + Gemini scraping..."
+#        python j_scraper.py || echo "⚠️ JSearch scraper had issues, continuing..."
+#        
+#        if [ -f "data/jsearch_gemini_jobs.json" ]; then
+#          echo "✅ JSearch jobs data created"
+#          echo "📊 Size: $(du -h data/jsearch_gemini_jobs.json | cut -f1)"
+#          echo "🔢 Job count: $(python -c "import json; data=json.load(open('data/jsearch_gemini_jobs.json')); print(data['metadata']['total_jobs'])" 2>/dev/null || echo 'Unknown')"
+#          echo "📞 API calls: $(python -c "import json; data=json.load(open('data/jsearch_gemini_jobs.json')); print(data['metadata']['api_calls_used'])" 2>/dev/null || echo 'Unknown')"
+#        else
+#          echo "⚠️ No JSearch jobs data generated"
+#        fi
+
+    # Phase 2.5: RSS Jobs Scraper (JSearch 대체)
+    - name: Run RSS + Gemini Scraper
       env:
-        RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY }}
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       run: |
-        echo "🔍 Starting JSearch + Gemini scraping..."
-        python j_scraper.py || echo "⚠️ JSearch scraper had issues, continuing..."
+        echo "📡 Starting RSS + Gemini scraping..."
+        python rss_scraper.py || echo "⚠️ RSS scraper had issues, continuing..."
         
-        if [ -f "data/jsearch_gemini_jobs.json" ]; then
-          echo "✅ JSearch jobs data created"
-          echo "📊 Size: $(du -h data/jsearch_gemini_jobs.json | cut -f1)"
-          echo "🔢 Job count: $(python -c "import json; data=json.load(open('data/jsearch_gemini_jobs.json')); print(data['metadata']['total_jobs'])" 2>/dev/null || echo 'Unknown')"
-          echo "📞 API calls: $(python -c "import json; data=json.load(open('data/jsearch_gemini_jobs.json')); print(data['metadata']['api_calls_used'])" 2>/dev/null || echo 'Unknown')"
+        if [ -f "data/rss_gemini_jobs.json" ]; then
+          echo "✅ RSS jobs data created"
+          echo "📊 Size: $(du -h data/rss_gemini_jobs.json | cut -f1)"
+          echo "🔢 Job count: $(python -c "import json; data=json.load(open('data/rss_gemini_jobs.json')); print(data['metadata']['total_jobs'])" 2>/dev/null || echo 'Unknown')"
         else
-          echo "⚠️ No JSearch jobs data generated"
+          echo "⚠️ No RSS jobs data generated"
         fi
         
     # Phase 3: LinkedIn Jobs (Most comprehensive)
@@ -110,7 +126,7 @@ jobs:
         else
           echo "⚠️ No LinkedIn jobs data generated"
         fi
-        
+
     # Phase 4: Data Integration and Summary
     - name: Integrate and analyze all data
       run: |
@@ -120,29 +136,31 @@ jobs:
         import json
         import os
         from datetime import datetime
-
+    
         def load_json_safely(filepath):
             try:
                 with open(filepath, 'r', encoding='utf-8') as f:
                     return json.load(f)
             except:
                 return {'jobs': [], 'metadata': {}}
-
+    
         # Load all data sources
         academic_data = load_json_safely('data/ajo_gemini_jobs.json')
-        jsearch_data = load_json_safely('data/jsearch_gemini_jobs.json') 
+        # jsearch_data = load_json_safely('data/jsearch_gemini_jobs.json')  # Quota exceeded
+        rss_data = load_json_safely('data/rss_gemini_jobs.json')  # New RSS source
         linkedin_data = load_json_safely('data/linkedin_gemini_jobs.json')
-
+    
         # Combine all jobs
         all_jobs = []
         all_jobs.extend(academic_data.get('jobs', []))
-        all_jobs.extend(jsearch_data.get('jobs', []))
+        # all_jobs.extend(jsearch_data.get('jobs', []))  # Skip JSearch due to quota
+        all_jobs.extend(rss_data.get('jobs', []))  # Add RSS jobs
         all_jobs.extend(linkedin_data.get('jobs', []))
-
+    
         # Remove duplicates based on URL and title+company
         seen = set()
         unique_jobs = []
-
+    
         for job in all_jobs:
             # Create unique identifier
             url = job.get('source_url', '')
@@ -152,15 +170,16 @@ jobs:
             if identifier not in seen:
                 seen.add(identifier)
                 unique_jobs.append(job)
-
+    
         # Sort by relevance score
         unique_jobs.sort(key=lambda x: x.get('relevance_score', 0), reverse=True)
-
+    
         # Calculate combined statistics
         stats = {
             'total_jobs': len(unique_jobs),
             'academic_jobs': len(academic_data.get('jobs', [])),
-            'jsearch_jobs': len(jsearch_data.get('jobs', [])), 
+            'jsearch_jobs': 0,  # len(jsearch_data.get('jobs', [])),  # Quota exceeded
+            'rss_jobs': len(rss_data.get('jobs', [])),  # New RSS count
             'linkedin_jobs': len(linkedin_data.get('jobs', [])),
             'duplicates_removed': len(all_jobs) - len(unique_jobs),
             'high_relevance': len([j for j in unique_jobs if j.get('relevance_score', 0) >= 80]),
@@ -170,11 +189,12 @@ jobs:
             'by_category': {},
             'sources': {
                 'academic': len(academic_data.get('jobs', [])),
-                'jsearch': len(jsearch_data.get('jobs', [])),
+                'jsearch': 0,  # len(jsearch_data.get('jobs', [])),  # Quota exceeded
+                'rss': len(rss_data.get('jobs', [])),  # New RSS source
                 'linkedin': len(linkedin_data.get('jobs', []))
             }
         }
-
+    
         # Count by job type and category
         for job in unique_jobs:
             job_type = job.get('job_type', 'unknown')
@@ -182,7 +202,7 @@ jobs:
             
             category = job.get('category', 'unknown')  
             stats['by_category'][category] = stats['by_category'].get(category, 0) + 1
-
+    
         # Create master data file
         master_data = {
             'jobs': unique_jobs,
@@ -190,26 +210,28 @@ jobs:
             'metadata': {
                 'last_update': datetime.now().isoformat(),
                 'total_unique_jobs': len(unique_jobs),
-                'sources_integrated': ['academic', 'jsearch', 'linkedin'],
-                'integration_date': datetime.now().isoformat()
+                'sources_integrated': ['academic', 'rss', 'linkedin'],  # Updated sources
+                'integration_date': datetime.now().isoformat(),
+                'note': 'JSearch temporarily disabled due to quota limits'
             }
         }
-
+    
         # Save master file
         with open('data/all_jobs_integrated.json', 'w', encoding='utf-8') as f:
             json.dump(master_data, f, ensure_ascii=False, indent=2)
-
+    
         # Create summary
         print(f'🎯 Data Integration Complete!')
         print(f'   Academic jobs: {stats["academic_jobs"]}')
-        print(f'   JSearch jobs: {stats["jsearch_jobs"]}')
+        print(f'   JSearch jobs: {stats["jsearch_jobs"]} (quota exceeded)')
+        print(f'   RSS jobs: {stats["rss_jobs"]} (NEW SOURCE)')
         print(f'   LinkedIn jobs: {stats["linkedin_jobs"]}')
         print(f'   Total unique: {stats["total_jobs"]}')
         print(f'   Duplicates removed: {stats["duplicates_removed"]}')
         print(f'   High relevance (80+): {stats["high_relevance"]}')
         print(f'   Gemini analyzed: {stats["gemini_analyzed"]}')
         print(f'   Remote jobs: {stats["remote_jobs"]}')
-
+    
         print(f'\n📂 By Job Type:')
         for job_type, count in stats['by_job_type'].items():
             print(f'   {job_type}: {count}')
@@ -217,6 +239,12 @@ jobs:
         print(f'\n📂 By Category:')
         for category, count in stats['by_category'].items():
             print(f'   {category}: {count}')
+            
+        print(f'\n📡 RSS Sources Breakdown:')
+        if rss_data.get('stats'):
+            rss_stats = rss_data['stats']
+            for source, count in rss_stats.get('by_source', {}).items():
+                print(f'   {source}: {count}')
         EOF
         
         python integrate_data.py
@@ -232,17 +260,21 @@ jobs:
           echo "✅ Updated data/jobs.json for HTML"
         fi
         
-        # Ensure jsearch_jobs.json exists for HTML
-        if [ ! -f "data/jsearch_jobs.json" ] && [ -f "data/jsearch_gemini_jobs.json" ]; then
-          cp data/jsearch_gemini_jobs.json data/jsearch_jobs.json
-          echo "✅ Created data/jsearch_jobs.json compatibility file"
+        # Create empty JSearch file for HTML compatibility (quota exceeded)
+        if [ ! -f "data/jsearch_jobs.json" ]; then
+          echo '{"jobs": [], "metadata": {"note": "JSearch disabled due to quota limits"}}' > data/jsearch_jobs.json
+          echo "✅ Created empty data/jsearch_jobs.json for HTML compatibility"
+        fi
+        
+        # Ensure RSS data is available for HTML
+        if [ -f "data/rss_gemini_jobs.json" ]; then
+          echo "✅ RSS data available for HTML integration"
         fi
         
         # Create stats summary
         cat > create_summary.py << 'EOF'
         import json
         from datetime import datetime
-
         try:
             with open('data/all_jobs_integrated.json', 'r') as f:
                 data = json.load(f)
@@ -254,7 +286,8 @@ jobs:
                 'quality': {
                     'high_relevance': data['stats']['high_relevance'],
                     'gemini_analyzed': data['stats']['gemini_analyzed']
-                }
+                },
+                'sources_note': 'RSS feeds replaced JSearch due to quota limits'
             }
             
             with open('data/scraping_summary.json', 'w') as f:
@@ -300,13 +333,14 @@ jobs:
           echo "" >> commit_msg.tmp
           echo "🎯 Integrated job data from multiple sources:" >> commit_msg.tmp
           echo "- Academic jobs (Gemini enhanced)" >> commit_msg.tmp
-          echo "- JSearch API (Google Jobs + Gemini)" >> commit_msg.tmp  
+          echo "- RSS feeds (AI Jobs Net + Big Tech + Job Boards)" >> commit_msg.tmp  
           echo "- LinkedIn API (Gemini filtered)" >> commit_msg.tmp
+          echo "- JSearch API temporarily disabled (quota exceeded)" >> commit_msg.tmp
           echo "" >> commit_msg.tmp
           
           # Add job counts if available
           if [ -f "data/all_jobs_integrated.json" ]; then
-            echo "📈 Job data updated with integrated results" >> commit_msg.tmp
+            echo "📈 Job data updated with RSS integration replacing JSearch" >> commit_msg.tmp
           fi
           
           git commit -F commit_msg.tmp
@@ -344,12 +378,32 @@ jobs:
           du -h data/* 2>/dev/null || echo "No data files found"
         fi
         
+        # Show data source summary
+        if [ -f "data/all_jobs_integrated.json" ]; then
+          echo ""
+          echo "📋 Data Sources Summary:"
+          python3 -c "
+import json
+try:
+    with open('data/all_jobs_integrated.json', 'r') as f:
+        data = json.load(f)
+    sources = data['stats']['sources']
+    print(f'   Academic: {sources.get(\"academic\", 0)} jobs')
+    print(f'   RSS: {sources.get(\"rss\", 0)} jobs (NEW)')
+    print(f'   LinkedIn: {sources.get(\"linkedin\", 0)} jobs')
+    print(f'   JSearch: {sources.get(\"jsearch\", 0)} jobs (quota exceeded)')
+    print(f'   Total unique: {data[\"stats\"][\"total_jobs\"]} jobs')
+except:
+    print('   Could not read integration data')
+"
+        fi
+        
         # Final status
         echo ""
         echo "✅ Workflow completed successfully!"
+        echo "🔄 RSS feeds now replacing JSearch for comprehensive coverage"
         echo "🕒 Next run: Tuesday or Friday at 10:00 UTC"
         echo "🌐 Data available at: https://github.com/${{ github.repository }}/tree/main/data"
         
         # Cleanup temporary files
-        rm -f commit_msg.tmp linkedin_scraper.js linkedin_gemini_analyzer.py integrate_data.py create_summary.py get_stats.py 2>/dev/null || true
-        
+        rm -f commit_msg.tmp linkedin_scraper.js linkedin_gemini_analyzer.py integrate_data.py create_summary.py rss_scraper.py 2>/dev/null || true
