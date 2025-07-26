@@ -395,8 +395,10 @@ try:
     print(f'   Total unique: {data[\"stats\"][\"total_jobs\"]} jobs')
 except:
     print('   Could not read integration data')
-"
-        fi
+EOF
+        python3 show_stats.py
+        rm show_stats.py
+      fi
         
         # Final status
         echo ""
