@@ -693,7 +693,7 @@ def main():
     scraper.setup_complete_linkedin_scraper()
 
 if __name__ == "__main__":
-    main()", 
+    main() 
             "digital rights", "AI regulation"
         ]
         
