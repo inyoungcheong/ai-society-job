@@ -1,15 +1,15 @@
 {
-  "total": 14,
-  "faculty": 3,
-  "industry": 3,
-  "nonprofit": 3,
-  "government": 3,
+  "total": 2,
+  "faculty": 0,
+  "industry": 0,
+  "nonprofit": 0,
+  "government": 0,
   "international": 2,
-  "new_today": 2,
+  "new_today": 0,
   "by_category": {
-    "law": 4,
-    "policy": 5,
-    "cs": 4,
-    "ischool": 1
+    "law": 1,
+    "policy": 1,
+    "cs": 0,
+    "ischool": 0
   }
 }
