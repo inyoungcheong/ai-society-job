@@ -8012,14 +8012,14 @@
     }
   },
   "metadata": {
-    "last_update": "2026-02-06T10:53:44.710890",
+    "last_update": "2026-02-10T11:05:04.416896",
     "total_unique_jobs": 251,
     "sources_integrated": [
       "academic",
       "rss",
       "linkedin"
     ],
-    "integration_date": "2026-02-06T10:53:44.710895",
+    "integration_date": "2026-02-10T11:05:04.416901",
     "note": "JSearch temporarily disabled due to quota limits"
   }
 }
